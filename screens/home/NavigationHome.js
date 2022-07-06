@@ -5,6 +5,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeContent from './homeSubScreens/HomeContent';
 import Filters from './homeSubScreens/Filter';
+import Haircut from './homeSubScreens/Haircut';
 
 const Stack=createStackNavigator();
 const NavigationHome=()=>{
@@ -22,6 +23,7 @@ const NavigationHome=()=>{
                     headerShown:false
                 }}
                 /> 
+                 <Stack.Screen name="Haircut" component={Haircut}/> 
                 
                 </>
               </Stack.Navigator>

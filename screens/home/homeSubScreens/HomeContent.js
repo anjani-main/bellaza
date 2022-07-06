@@ -8,6 +8,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import Header from '../../../components/Header';
 const oneS=(
     <View style={{flexDirection:'row'}}>
         <Image source={require('../../../statics/star.png')} />
@@ -84,12 +85,14 @@ const ServiceScroll=({iName,service,key,category,changeCateg})=>{
     )
 }
 const HomeContent=({navigation})=>{
-    const [category,setCategory]=useState('Haircut');
+    const [category,setCategory]=useState('');
     const changeCateg=(service)=>{
         setCategory(service);
+        navigation.navigate(service)
     }
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
+            <Header title="Home"/>
             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',paddingRight:0,alignSelf:'center'}}>
                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-start',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:25,borderRadius:8,height:45}}>
                     <Icon

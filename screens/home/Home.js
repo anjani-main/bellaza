@@ -9,7 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NavigationHome from './NavigationHome';
 import NavigationFavourite from './NavigationFavourite';
 
-
+import MyDrawer from './Drawer';
 
 
 const Tab=createBottomTabNavigator();
@@ -34,9 +34,7 @@ const Home=()=>{
                 name="Home"
                 component={NavigationHome}
                 options={{
-                    header:()=>{
-                        return <Header title="Home"/>
-                    },
+                    headerShown:false,
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="home-outline" color={color} size={30} />
                     ),
