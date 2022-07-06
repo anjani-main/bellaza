@@ -1,22 +1,18 @@
 import React from 'react';
-import {View,Text, StyleSheet, TouchableOpacity,} from 'react-native';
+import {View,Text, StyleSheet, TouchableOpacity,Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-export default function Header(){
+export default function Header({title}){
  const navigation = useNavigation();
   return(
     <View style={headerStyles.container}>
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
-            <Icon name="menu" size={24} color="white" />
+            <Image source={require('../statics/menu.png')}/>
         </TouchableOpacity>
-        <View>
-            <Icon name="search"
-                onPress={()=>navigation.navigate('Search')}
-               color='white'
-                />
-
-        </View>
+        <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Regular',textAlign:'center',justifyContent:'center', lineHeight:26}}>{title}</Text>
+        <Text style={{color:'black'}}></Text>
+        
     </View>
     )
 }
@@ -25,7 +21,7 @@ const headerStyles=StyleSheet.create({
    container:{
      
        width:'100%',
-       backgroundColor:'black',
+       backgroundColor:'white',
        elevation:0,
        height:50,
        display:'flex',

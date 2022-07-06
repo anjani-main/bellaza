@@ -29,38 +29,15 @@ const CustomSidebarMenu = (props) => {
   },[]);
 
   return (
-    <SafeAreaView style={{flex: 1,backgroundColor:'black'}}>
-      <View style={{flexDirection:'column',height:120}}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modal}
-      >
-        <View  style={{backgroundColor:'#37274B',width:"80%",height:350,alignSelf:'center',flexDirection:'column',justifyContent:'space-evenly',borderRadius:10}} >
-          <Icon name="redeem" color={'#9E84FF'} size={30}/>
-          <Text style={{color:'#9E84FF',fontSize:20,fontWeight:'600',fontFamily:'Poppins-Regular',alignSelf:'center'}}>Redeem Coupon</Text>
-          <TextInput 
-            value={coupon}
-            onChangeText={(text)=>setCoupon(text)}
-            style={{width:'80%',height:50,borderRadius:15,borderColor:'#6D44B8',borderWidth:1,alignSelf:'center',textAlign:'center',color:'#9E84FF'}}
-
-            placeholder=" Enter Coupon code"
-            placeholderTextColor='#9E84FF'
-           />
-           <Button title="Apply" onPress={()=>setModal(false)} buttonStyle={{width:'60%',height:46,backgroundColor:'#6644B8',borderRadius:15,alignSelf:'center'}} titleStyle={{alignSelf:'center'}} />
-        </View>
-      </Modal>
+    <SafeAreaView style={{flex: 1,backgroundColor:'white'}}>
+      <View style={{flexDirection:'column',height:50}}>
+      
       <TouchableOpacity onPress={()=>{navigation.navigate('Account');}}>
-       <Icon
-       name="person"
-       color='white'
-       size={50}
-       style={{borderColor:'gray',borderWidth:2,borderRadius:100,width:60,height:60,justifyContent:'center',alignItems:'center',alignSelf:'center',marginTop:30}}
-       />
+       <Image source={require('../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:50}}/>
       </TouchableOpacity>
      
         <Text style={{fontSize:16,fontWeight:'600',color:'white',marginTop:20,alignSelf:'center'}}>Guest User</Text>
-        <Button title="Go Premium" buttonStyle={{width:'60%',height:46,backgroundColor:'#6644B8',borderWidth:1,borderRadius:15,alignSelf:'center',marginTop:10}} />
+       
       </View>
 
       <DrawerContentScrollView {...props}>

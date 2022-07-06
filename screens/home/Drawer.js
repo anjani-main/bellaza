@@ -8,7 +8,7 @@ import TermsOfUse from './TermsofUse';
 import Home from './Home';
 import {Button, Icon} from 'react-native-elements';
 import Header from '../../components/Header';
-import { NavigationContainer } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Favourite from './Favourite';
 import Support from './Support';
 import CustomSidebarMenu from '../../components/CustomSideNavbar';
@@ -62,10 +62,8 @@ const MyDrawer=()=>{
         drawerContent={(props) => <CustomSidebarMenu {...props} />}
     >
       <Drawer.Screen
-          
           name="Home2"
           component={Home}
-          
           options={{
           drawerActiveTintColor:'#181725',
           drawerActiveBackgroundColor:'none',
@@ -78,26 +76,85 @@ const MyDrawer=()=>{
 
        
           <Drawer.Screen
-          
-          name="Favourite"
-          component={Favourite}
-          
-          options={{
-            drawerIcon: ({focused, size}) => (
-              <Icon
-                 name="favorite"
-                 size={25}
-                 color={'#987EFC'}
-              />
+            name="Favourite"
+            component={Favourite}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <Icon
+                name="favorite-border"
+                size={26}
+                color={'#FF3737'}
+             />
            ),
-          drawerActiveTintColor:'#181725',
-          drawerActiveBackgroundColor:'none',
-          drawerContentContainerStyle:{display:'none'},
-          drawerLabelStyle:{color:'white'},
-          headerShown:false,
-          }}
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
           />
+          
           <Drawer.Screen
+            name="My Bookings"
+            component={Favourite}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <MaterialCommunityIcons
+                  name="ticket-percent-outline"
+                  size={25}
+                  color={'#FF3737'}
+                />
+           ),
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
+          />
+          
+          <Drawer.Screen
+            name="Share"
+            component={Favourite}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <Icon
+                  name="share"
+                  size={25}
+                  color={'#FF3737'}
+                />
+           ),
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
+          />
+          
+          <Drawer.Screen
+            name="Register as partner"
+            component={Favourite}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <Icon
+                  name="wc"
+                  size={25}
+                  color={'#FF3737'}
+                />
+           ),
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
+          />
+          {/* <Drawer.Screen
           
           name="Reddem"
           mode="modal"
@@ -108,7 +165,7 @@ const MyDrawer=()=>{
               <Icon
                  name="redeem"
                  size={25}
-                 color={'#987EFC'}
+                 color={'#FF3737'}
               />
            ),
             drawerActiveTintColor:'#181725',
@@ -118,24 +175,8 @@ const MyDrawer=()=>{
             headerShown:false,
           }}
           />
-          <Drawer.Screen
-          name="WatchList"
-          component={WatchList}
-          options={{
-             drawerIcon: ({focused, size}) => (
-              <Icon
-                 name="subscriptions"
-                 size={25}
-                 color={'#987EFC'}
-              />
-           ),
-            drawerActiveTintColor:'#181725',
-            drawerActiveBackgroundColor:'none',
-            drawerLabelStyle:{color:'white'},
-            headerShown:false,
-          }}
-          />
-          <Drawer.Screen
+          */}
+          {/* <Drawer.Screen
           name="Downloads"
           component={Downloads}
           options={{
@@ -143,7 +184,7 @@ const MyDrawer=()=>{
               <Icon
                  name="file-download"
                  size={25}
-                 color={'#987EFC'}
+                 color={'#FF3737'}
               />
            ),
             drawerActiveTintColor:'#181725',
@@ -153,18 +194,7 @@ const MyDrawer=()=>{
             headerShown:false,
           }}
           />
-          <Drawer.Screen
-          
-            name="MoviePage"
-            component={MoviePage}
-            options={{
-            drawerActiveTintColor:'#181725',
-            drawerActiveBackgroundColor:'none',
-            drawerContentContainerStyle:{display:'none'},
-            drawerLabelStyle:{display:'none'},
-            headerShown:false,
-          }}
-          />
+         */}
           <Drawer.Screen
           
             name="PrivacyPolicy"

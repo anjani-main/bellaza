@@ -14,7 +14,7 @@ const Register=({navigation})=>{
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
-            <Text style={{...style.tStyle,fontWeight:'400',fontSize:48,lineHeight:55,color:'#FF3737'}}>Bellazza</Text>
+        <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>
             <Text style={{...style.tStyle,fontWeight:'600',fontSize:20,lineHeight:30}}>Hello Again !</Text>
             <Text style={{...style.tStyle,fontWeight:'500',fontSize:14,lineHeight:21}}>Welcome back you’ve been missed!</Text>
             <TextInput

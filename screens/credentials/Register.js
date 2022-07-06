@@ -14,7 +14,7 @@ const Register=({navigation})=>{
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
-            <Text style={{...style.tStyle,fontWeight:'400',fontSize:48,lineHeight:55,color:'#FF3737'}}>Bellazza</Text>
+        <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>
             <Text style={{...style.tStyle,fontWeight:'600',fontSize:20,lineHeight:30}}>Join Us</Text>
             <Text style={{...style.tStyle,fontWeight:'500',fontSize:14,lineHeight:21}}>Discover your favourite salon near you</Text>
             <TextInput
@@ -78,7 +78,7 @@ const Register=({navigation})=>{
                 />
                 <Text style={{fontSize:10,fontWeight:'500',lineHeight:15,...style.tStyle}}>I Agree with the <Text style={{color:'#FF3737'}}>Term of Service</Text> & <Text style={{color:'#FF3737'}}>Privacy Policy</Text></Text>
             </View>
-            <Button title={'Sign Up'} buttonStyle={{width:'80%',height:53,backgroundColor:'#EA2424',alignSelf:'center',borderRadius:10}} />
+            <Button  onPress={()=>navigation.navigate('Home')} title={'Sign Up'} buttonStyle={{width:'80%',height:53,backgroundColor:'#EA2424',alignSelf:'center',borderRadius:10}} />
             <Text style={{textAlign:'center'}}> or </Text>
             <View style={{flexDirection:'row',justifyContent:'space-around',width:'80%',alignSelf:'center'}}>
                 <View style={{flexDirection:'row'}}>
