@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeContent from './homeSubScreens/HomeContent';
 import Filters from './homeSubScreens/Filter';
 import Haircut from './homeSubScreens/Haircut';
+import Haircutdetails from './homeSubScreens/Haircutdetails';
 
 const Stack=createStackNavigator();
 const NavigationHome=()=>{
@@ -24,6 +25,7 @@ const NavigationHome=()=>{
                 }}
                 /> 
                  <Stack.Screen name="Haircut" component={Haircut}/> 
+                 <Stack.Screen name="Haircutdetails" component={Haircutdetails}/> 
                 
                 </>
               </Stack.Navigator>

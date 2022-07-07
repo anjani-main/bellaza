@@ -12,6 +12,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Favourite from './Favourite';
 import Support from './Support';
 import CustomSidebarMenu from '../../components/CustomSideNavbar';
+import Bookings from './Bookings';
+import RegisterPartner from './RegisterPartner';
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
 const Modal=()=>{
@@ -97,7 +99,7 @@ const MyDrawer=()=>{
           
           <Drawer.Screen
             name="My Bookings"
-            component={Favourite}
+            component={Bookings}
             
             options={{
               drawerIcon: ({focused, size}) => (
@@ -137,7 +139,7 @@ const MyDrawer=()=>{
           
           <Drawer.Screen
             name="Register as partner"
-            component={Favourite}
+            component={RegisterPartner}
             
             options={{
               drawerIcon: ({focused, size}) => (

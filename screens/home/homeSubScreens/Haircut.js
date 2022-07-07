@@ -43,29 +43,31 @@ const fiveS=(
     </View>
 )
 
-const ServiceScroll=({sname,rating,price,desc})=>{
+const ServiceScroll=({navigation,sname,rating,price,desc})=>{
     return(
         <View>
-            <View  style={{flexDirection:'row', borderRadius:8,marginTop:20,height:155, width:'90%',alignSelf:'center'}}>
-           <View style={{flex:2,justifyContent:'flex-start'}}>
-                <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:18,lineHeight:27,fontWeight:'600'}}>{sname}</Text>
-                <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>Rating</Text>
-                <View style={{flexDirection:'row'}}>
-                <Image source={require('../../../statics/star.png')} style={{marginRight:10}} />
-                <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>{rating} out of 5</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate('Haircutdetails')}>
+                <View  style={{flexDirection:'row', borderRadius:8,marginTop:20,height:155, width:'90%',alignSelf:'center'}}>
+                <View style={{flex:2,justifyContent:'flex-start'}}>
+                        <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:18,lineHeight:27,fontWeight:'600'}}>{sname}</Text>
+                        <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>Rating</Text>
+                        <View style={{flexDirection:'row'}}>
+                        <Image source={require('../../../statics/star.png')} style={{marginRight:10}} />
+                        <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>{rating} out of 5</Text>
+                        </View>
+                        <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>₹ {price}/-</Text>
+                        <Text style={{maxWidth:250,overflow:'hidden'}}>--------------------------------------------------------------</Text>
+                        <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'400',width:198,marginTop:4}}>{desc}</Text>
+                        <Text style={{color:'#4196F8',fontFamily:'Poppins-Regular',fontSize:10,lineHeight:15,fontWeight:'500',marginTop:4}}>View details</Text>
                 </View>
-                <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>₹ {price}/-</Text>
-                <Text style={{maxWidth:250,overflow:'hidden'}}>--------------------------------------------------------------</Text>
-                <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'400',width:198,marginTop:4}}>{desc}</Text>
-                <Text style={{color:'#4196F8',fontFamily:'Poppins-Regular',fontSize:10,lineHeight:15,fontWeight:'500',marginTop:4}}>View details</Text>
-           </View>
-           <View style={{flex:1,alignItems:'center'}}>
-                <Image source={require('../../../statics/banner.png')} style={{width:95,height:95,borderRadius:6}}/>
-                <Button title="Book" titleStyle={{color:'#FF3737',fontSize:12,marginTop:-5}} buttonStyle={{backgroundColor:'white',borderColor:'#FF3737',borderWidth:2,width:92,height:33,marginTop:20,borderRadius:6}}/>
-            </View>
-           
-        </View>
-        <View style={{width:'100%',height:8,backgroundColor:'#E7E7E7',marginTop:20}}></View>
+                <View style={{flex:1,alignItems:'center'}}>
+                    <Image source={require('../../../statics/banner.png')} style={{width:95,height:95,borderRadius:6}}/>
+                    <Button title="Book" titleStyle={{color:'#FF3737',fontSize:12,marginTop:-5}} buttonStyle={{backgroundColor:'white',borderColor:'#FF3737',borderWidth:2,width:92,height:33,marginTop:20,borderRadius:6}}/>
+                </View>
+                </View>
+                <View style={{width:'100%',height:8,backgroundColor:'#E7E7E7',marginTop:20}}></View>
+            </TouchableOpacity>
+            
         </View>
        
     )
@@ -108,24 +110,28 @@ const Haircut=({navigation})=>{
             <View style={{width:'100%',height:8,backgroundColor:'#E7E7E7',marginTop:30}}></View>
             <View style={{marginBottom:30}}>
             <ServiceScroll 
+                navigation={navigation}
                 sname={'Loreal Salon & Spa'}
                 rating={'4.5'}
                 price={'150'}
                 desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
             />
             <ServiceScroll 
+                navigation={navigation}
                 sname={'Loreal Salon & Spa'}
                 rating={'4.5'}
                 price={'150'}
                 desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
             />
-             <ServiceScroll 
+             <ServiceScroll
+                navigation={navigation} 
                 sname={'Loreal Salon & Spa'}
                 rating={'4.5'}
                 price={'150'}
                 desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
             />
             <ServiceScroll 
+                navigation={navigation}
                 sname={'Loreal Salon & Spa'}
                 rating={'4.5'}
                 price={'150'}

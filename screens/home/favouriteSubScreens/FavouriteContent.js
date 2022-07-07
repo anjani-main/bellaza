@@ -36,13 +36,13 @@ const FavouriteContent=({navigation})=>{
            </View>
            <View style={{width:'90%',height:47,backgroundColor:'#352449',borderColor:'#6D44B8',borderWidth:1,alignSelf:'center',marginTop:20,borderRadius:10,flexDirection:'row'}}>
                 <View style={{backgroundColor:(categ2=='Popular'?'#6644B8':'transparent'),width:'33%',height:47,borderRadius:10,alignItems:'center',justifyContent:'center'}} >
-                    <Text onPress={()=>setCateg2('Popular')} style={{color:'white',fontFamily:'Poppins-regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Popular</Text>
+                    <Text onPress={()=>setCateg2('Popular')} style={{color:'white',fontFamily:'Poppins-Regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Popular</Text>
                 </View>
                 <View style={{backgroundColor:(categ2=='Trending'?'#6644B8':'transparent'),width:'33.3%',height:47,borderRadius:10,alignItems:'center',justifyContent:'center'}} >
-                    <Text onPress={()=>setCateg2('Trending')} style={{color:'white',fontFamily:'Poppins-regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Trending</Text>
+                    <Text onPress={()=>setCateg2('Trending')} style={{color:'white',fontFamily:'Poppins-Regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Trending</Text>
                 </View>
                 <View style={{backgroundColor:(categ2=='Soon'?'#6644B8':'transparent'),width:'33.5%',height:47,borderRadius:10,alignItems:'center',justifyContent:'center'}} >
-                    <Text onPress={()=>setCateg2('Soon')} style={{color:'white',fontFamily:'Poppins-regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Soon</Text>
+                    <Text onPress={()=>setCateg2('Soon')} style={{color:'white',fontFamily:'Poppins-Regular',textAlign:'center',fontSize:15,fontWeight:'500'}}>Soon</Text>
                 </View>
            </View>
            <View style={{height:230,width:'100%',justifyContent:'center',alignItems:'center'}}>
