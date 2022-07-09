@@ -75,7 +75,26 @@ const MyDrawer=()=>{
 
           }}
           />
-
+             <Drawer.Screen
+            name="My Profile"
+            component={Account}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <MaterialCommunityIcons
+                  name="account-circle-outline"
+                  size={25}
+                  color={'#FF3737'}
+                />
+           ),
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
+          />
+          
        
           <Drawer.Screen
             name="Favourite"

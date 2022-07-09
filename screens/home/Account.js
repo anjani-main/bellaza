@@ -4,12 +4,20 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, Icon } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-// import axios from "axios";
+import Header from '../../components/Header';
+import { Dropdown } from 'react-native-element-dropdown';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 // import Toast from 'react-native-toast-message';
 
+const data = [
+    { label: 'male', value: 'male' },
+    { label: 'female', value: 'female' },
+
+  ];
 const Account=({navigation})=>{
     const [loading,setIsLoading] = useState(true);
-    const [user,setUser]=useState({name:'abcd',phone:'98XXXXXXX1',email:'abc@gmail.com'})
+    const [user,setUser]=useState({name:'abcd',phone:'98XXXXXXX1',email:'abc@gmail.com',gender:'male'})
     const [edit,setEdit] = useState(false);
 
       useEffect(() => {
@@ -17,78 +25,135 @@ const Account=({navigation})=>{
       },[]);
       
     return(
-        <KeyboardAwareScrollView contentContainerStyle={{height:700}}>
-        <View style={{backgroundColor:'black',flex:1,paddingTop:0}}>
-            <View style={{flex:0.5,borderWidth:1,flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingLeft:'6%'}}>
-                <TouchableOpacity onPress={()=>navigation.goBack() }>
-                    <Image source={require('../../statics/back.png')}  style={{backgroundColor:'#4e4060',width:30,height:30,borderRadius:100,borderWidth:1}}/>
-                </TouchableOpacity>
-                <View style={{flexDirection:'row'}}>
-                <Text style={{color:'white',alignSelf:'center',marginRight:10,fontFamily:'Poppins-Regular',fontSize:18,fontWeight:'600'}}>Account</Text>
-                <TouchableOpacity onPress={()=>setEdit(true)}>
-                    <Image  source={require('../../statics/edit.png')} style={{marginTop:2}} />
-                </TouchableOpacity>
-                </View>
-                <Text >'         '</Text>
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:'white',height:700}}>
+        <View style={{backgroundColor:'white',paddingHorizontal:25}}>
+            <View style={headerStyles.container}>
+            <TouchableOpacity onPress={()=>navigation.openDrawer()}>
+                <Image source={require('../../statics/menu.png')}/>
+            </TouchableOpacity>
+            <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Medium',textAlign:'center',justifyContent:'center', lineHeight:26}}>{edit==false?'My Profile':'Edit Profile'}</Text>
+           {edit==false?(<MaterialCommunityIcons
+            onPress={()=>setEdit(true)}
+                    name="pencil"
+                    size={25}
+                    color={'#FF3737'}
+                    />):(<Text>''</Text>)} 
+            
             </View>
-            <View style={{flex:2,justifyContent:'space-evenly',paddingLeft:'6%',marginTop:30}}>
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Name</Text>
-                {edit==false?(<Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>{user.name}</Text>):(
-                    <TextInput
-                    style={{width:'60%',borderBottomColor:'gray',borderBottomWidth:1,  color: 'white'}}
-                    editable={true}
-                    placeholderTextColor = "gray"
-                    onChangeText={(text)=>{setUser({...user,name:text})}}
-                    value={user.name}
-                    ></TextInput> 
-                )}
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Phone No.</Text>
-                {edit==false?(<Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>{user.phone}</Text>):(
-                    <TextInput
-                    style={{width:'60%',borderBottomColor:'gray',borderBottomWidth:1,  color: 'white'}}
-                    editable={true}
-                    placeholderTextColor = "gray"
-                 
-                    onChangeText={(text)=>{setUser({...user,phone:text})}}
-                    value={user.phone}
-                    ></TextInput> 
-                )}
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Email</Text>
-                {edit==false?(<Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>{user.email}</Text>):(
-                    <TextInput
-                    style={{width:'60%',borderBottomColor:'gray',borderBottomWidth:1,  color: 'white'}}
-                    editable={true}
-                    placeholderTextColor = "gray"
-                    placeholder=" Address Line 1"
-                    onChangeText={(text)=>{setUser({...user,email:text})}}
-                    value={user.email}
-                    ></TextInput> 
-                )}
+            <View style={{justifyContent:'space-evenly',marginTop:10,paddingHorizontal:20}}>
+                <>
+                {edit==false?(
+                    <View style={{width:'100%',height:80,alignSelf:'center',marginTop:10,flexDirection:'row',borderBottomColor:'#D9D9D9',borderBottomWidth:1}}>
+                        <View style={{flex:1,justifyContent:'center'}}>
+                            <Text style={{color:'#FF3737',fontSize:24,fontFamily:'Poppins-Medium', fontWeight:'600',lineHeight:36,marginBottom:5}}>Hey Kaiful !</Text>
+                            <Text style={{fontFamily:'Poppins-Medium',fontWeight:'500',fontSize:13,color:'#B4B4B4',marginRight:19}}>+91 3456467888</Text>
+                        </View>
+                        <View style={{flex:1,justifyContent:'flex-start',alignItems:'flex-end'}}>
+                            <Image source={require('../../statics/poster.png')} style={{width:65,height:65,borderRadius:100}}/>
+                        </View>
+                    </View>
+                ):(<View style={{alignSelf:'center',width:120,height:120,borderColor:'black',borderWidth:1,borderRadius:100,alignItems:'center',justifyContent:'center',marginBottom:-20}}>
+                       <Image source={require('../../statics/poster.png')} style={{width:100,height:100,borderRadius:100}}/>
+                </View>)}
+                </>
+                <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>
+                    <Text style={{color:'#FF3737',fontFamily:'Poppins-Medium',fontSize:13,fontWeight:'600'}}>Name</Text>
+                    {edit==false?(<Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:13,fontWeight:'400'}}>{user.name}</Text>):(
+                        <TextInput
+                        style={{width:'100%',borderBottomColor:'#FF3737',borderBottomWidth:1,color: 'black'}}
+                        editable={true}
+                        placeholderTextColor = "gray"
+                        onChangeText={(text)=>{setUser({...user,name:text})}}
+                        value={user.name}
+                        ></TextInput> 
+                    )}
+                </View>
+                {edit==false?(<>
+                    <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>
+                        <Text style={{color:'#FF3737',fontFamily:'Poppins-Medium',fontSize:13,fontWeight:'600'}}>Phone Number/Email Address</Text>
+                        <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:13,fontWeight:'400'}}>{user.phone}</Text>
+                    </View></>
+                    ):null}
+           
+                
+                <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>
+                    <Text style={{color:'#FF3737',fontFamily:'Poppins-Medium',fontSize:13,fontWeight:'600'}}>Gender</Text>
+                    {edit==false?(<Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:13,fontWeight:'400'}}>{user.email}</Text>):(
+                        <Dropdown
+                        //   style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                        selectedTextStyle={{fontSize:13,color:'black'}}
+                        //   inputSearchStyle={styles.inputSearchStyle}
+                        //   iconStyle={styles.iconStyle}
+                        data={data}
+                        maxHeight={300}
+                        labelField="label"
+                        valueField="value"
+                        searchPlaceholder="Search..."
+                        value={user.gender}
+                        onChange={(item) => {
+                            setUser({...user,gender:item.label})
+                        }}
+                       
+                        />
+                    )}
+                </View>
+                
+                <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>
+                    <Text style={{color:'#FF3737',fontFamily:'Poppins-Medium',fontSize:13,fontWeight:'600'}}>Age</Text>
+                    {edit==false?(<Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:13,fontWeight:'400'}}>{user.email}</Text>):(
+                        <TextInput
+                        style={{width:'100%',borderBottomColor:'#FF3737',borderBottomWidth:1,color: 'black'}}
+                        editable={true}
+                        placeholderTextColor = "gray"
+                        placeholder=" Address Line 1"
+                        onChangeText={(text)=>{setUser({...user,email:text})}}
+                        value={user.email}
+                        ></TextInput> 
+                    )}
+                </View>
+                
+                <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>
+                    <Text style={{color:'#FF3737',fontFamily:'Poppins-Medium',fontSize:13,fontWeight:'600'}}>Address</Text>
+                    {edit==false?(<Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:13,fontWeight:'400'}}>{user.email}</Text>):(
+                        <TextInput
+                        style={{width:'100%',borderBottomColor:'#FF3737',borderBottomWidth:1,color: 'black'}}
+                        editable={true}
+                        placeholderTextColor = "gray"
+                        placeholder=" Address Line 1"
+                        onChangeText={(text)=>{setUser({...user,email:text})}}
+                        value={user.email}
+                        ></TextInput> 
+                    )}
+                </View>
+                
+              
               
             </View>
-           {edit==false?(
-            <>
-            <View style={{borderBottomColor:'#727272',borderBottomWidth:1,flex:0.1,marginBottom:2}}></View>
-            <View style={{flex:1,justifyContent:'space-evenly',paddingLeft:'6%'}}>
-                <Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'600'}}>Subsctiption Details</Text>
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Premium Plan</Text>
-            </View>
-            </>
-           ):null} 
-
-            
-            <View style={{flex:2}}></View>
             {edit==true?(
                 <>
-                <View style={{position:'absolute',top:'90%',alignSelf:'center',width:'100%'}}>
-                    <Button title="Update" onPress={()=>setEdit(false)} buttonStyle={{width:'70%',borderRadius:15,height:46,alignSelf:'center',backgroundColor:'#6644B8'}}/>
+                <View style={{marginTop:30,alignSelf:'center',width:'100%',paddingHorizontal:20}}>
+                    <Button title="Update" onPress={()=>setEdit(false)} buttonStyle={{width:'100%',borderRadius:10,height:53,alignSelf:'center',backgroundColor:'#EA2424'}}/>
                 </View>
-               
                 </>
-            ):null}
+            ):(<Image source={require('../../statics/logout.png')} style={{alignSelf:'center',width:'50%',height:46}}/>)}
         </View>
         </KeyboardAwareScrollView>
     )
 }
 
 export default Account;
+const headerStyles=StyleSheet.create({
+    container:{
+      
+        width:'100%',
+        backgroundColor:'white',
+        elevation:0,
+        height:50,
+        display:'flex',
+        flexDirection:'row',
+        paddingHorizontal:0,
+        alignItems:'center',
+        justifyContent:'space-between',
+        alignSelf:'center'
+    }
+ })

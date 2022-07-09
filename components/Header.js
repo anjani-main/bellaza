@@ -10,7 +10,7 @@ export default function Header({title}){
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
             <Image source={require('../statics/menu.png')}/>
         </TouchableOpacity>
-        <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Regular',textAlign:'center',justifyContent:'center', lineHeight:26}}>{title}</Text>
+        <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Medium',textAlign:'center',justifyContent:'center', lineHeight:26}}>{title}</Text>
         <Text style={{color:'black'}}></Text>
         
     </View>
