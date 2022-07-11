@@ -51,7 +51,7 @@ const Checkout=({navigation})=>{
       
     return(
         <ScrollView style={{backgroundColor:'white',flex:1}}>
-            <Header title={'My Bookings'}/>
+            <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Medium',textAlign:'center',justifyContent:'center', lineHeight:26,marginTop:10}}>Checkout</Text>
             <View style={{paddingHorizontal:25,marginBottom:30}}>
 
           
@@ -98,7 +98,7 @@ const Checkout=({navigation})=>{
                         placeholderTextColor = "gray"
                         placeholder=""
                         ></TextInput>
-                    <TouchableOpacity onPress={()=>setTips([additionalTip,...tips])}>
+                    <TouchableOpacity onPress={()=>{setTips([additionalTip,...tips]);setCurrentTip(additionalTip)}}>
                         <Text style={{color:'#FF3737',fontSize:12,fontWeight:'500',lineHeight:18,fontFamily:'Poppins-Medium'}}>Add</Text>
                     </TouchableOpacity>
                    
