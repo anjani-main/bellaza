@@ -1,4 +1,4 @@
-import React,{useEffect,useState,useNa} from 'react';
+import React,{useEffect,useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -30,18 +30,11 @@ const CustomSidebarMenu = (props) => {
 
   return (
     <SafeAreaView style={{flex: 1,backgroundColor:'white'}}>
-      <View style={{flexDirection:'column',height:50}}>
-      
-      <TouchableOpacity onPress={()=>{navigation.navigate('Account');}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate('Home2');}}>
        <Image source={require('../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:50}}/>
       </TouchableOpacity>
-     
-        <Text style={{fontSize:16,fontWeight:'600',color:'white',marginTop:20,alignSelf:'center'}}>Guest User</Text>
-       
-      </View>
-
       <DrawerContentScrollView {...props}>
-      <View style={{width:'97%',height:2,marginTop:40}}></View>
+      <View style={{width:'97%',height:2,marginTop:0}}></View>
         <DrawerItemList {...props} style={{ height:200,borderColor:'red',borderWidth:1}}/>
         {/* <TouchableOpacity onPress={()=>setModal(true)}>
         <Text style={{color:'white'}}>Redeem</Text>

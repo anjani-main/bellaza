@@ -7,6 +7,7 @@ import HomeContent from './homeSubScreens/HomeContent';
 import Filters from './homeSubScreens/Filter';
 import Haircut from './homeSubScreens/Haircut';
 import Haircutdetails from './homeSubScreens/Haircutdetails';
+import Checkout from './homeSubScreens/Checkout';
 
 const Stack=createStackNavigator();
 const NavigationHome=()=>{
@@ -16,7 +17,7 @@ const NavigationHome=()=>{
                 headerShown: false,
                 cardStyle: { backgroundColor: '#FFFFFF' },   
             }} 
-            initialRouteName={'HomeContent'}>
+            initialRouteName={'Checkout'}>
                   
                 <> 
                 <Stack.Screen name="HomeContent" component={HomeContent} /> 
@@ -25,7 +26,8 @@ const NavigationHome=()=>{
                 }}
                 /> 
                  <Stack.Screen name="Haircut" component={Haircut}/> 
-                 <Stack.Screen name="Haircutdetails" component={Haircutdetails}/> 
+                 <Stack.Screen name="Haircutdetails" component={Haircutdetails}/>
+                 <Stack.Screen name="Checkout" component={Checkout}/>
                 
                 </>
               </Stack.Navigator>

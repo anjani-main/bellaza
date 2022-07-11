@@ -18,17 +18,22 @@ const Home=()=>{
     return(
         <Tab.Navigator
         initialRouteName="Home"
-        screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-                return <IonIcon name="github" size={37} color="blue"     />;
+        screenOptions={{
+            "tabBarActiveTintColor": "tomato",
+            "tabBarInactiveTintColor": "gray",
+            "tabBarShowLabel": false,
+            "tabBarStyle": [
+              {
+                "display": "flex"
               },
-              
-            })}
-        tabBarOptions={{
-            showLabel:false,
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        }}
+              null
+            ]
+          }}
+        // tabBarOptions={{
+        //     showLabel:false,
+        //     activeTintColor: 'tomato',
+        //     inactiveTintColor: 'gray',
+        // }}
         >
             <Tab.Screen
                 name="Home"

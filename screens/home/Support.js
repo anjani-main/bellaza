@@ -1,47 +1,42 @@
-import React,{useEffect,useReducer,useState} from 'react';
-import {View,Text, StyleSheet, TouchableOpacity,Image,ActivityIndicator, TextInput} from 'react-native';
+import React from 'react';
+import {View,Text, StyleSheet, TouchableOpacity,Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button, Icon } from 'react-native-elements';
-// import axios from "axios";
-// import Toast from 'react-native-toast-message';
+import { Icon } from 'react-native-elements';
+import Header from '../../components/Header';
 
-const Support=({navigation})=>{
-    const [loading,setIsLoading] = useState(true);
-
-      useEffect(() => {
-   
-      },[]);
-      
+const Help=({navigation})=>{
     return(
+        <View style={{backgroundColor:'white',flex:1}}>
+        <Header title="Support" />
+        <Text style={{paddingLeft:25,color:'#F55633',fontWeight:'bold',fontSize:18,fontFamily:'Poppins-Light',marginTop:30}}>We're here to help</Text>
+
+        <View style={{flexDirection:'row',borderWidth:1,width:121,height:36,justifyContent:'space-evenly',borderRadius:22,alignItems:'center',marginLeft:25,marginTop:30,borderColor:'#F55633'}}>
+            <Image 
+                style={{width:20}}
+                source={require('../../statics/phone.png')}
+            />
+            <Text style={{color:'black',fontSize:14,fontWeight:'500'}}>Phone</Text>
+        </View>
+
+        <Text style={{paddingLeft:25,fontSize:11,fontFamily:'Poppins-Regular',marginTop:30,width:278,height:42,color:'black'}}>
+        Call 509 968 8876 to speak to a support representative now
+        </Text>
+        <View style={{width:'100%',paddingLeft:-50 ,height:11,backgroundColor:'#E7E7E7',marginTop:5}}></View>
+   
+        <View style={{flexDirection:'row',borderWidth:1,width:121,height:40,justifyContent:'space-evenly',borderRadius:22,alignItems:'center',marginLeft:25,marginTop:20,borderColor:'#F55633'}}>
+            <Image 
+                style={{width:20}}
+                source={require('../../statics/mail.png')}
+            />
+            <Text style={{color:'black',fontSize:14,fontWeight:'500'}}>Email</Text>
+        </View>
       
-        <View style={{backgroundColor:'black',flex:1,paddingTop:60,paddingTop:25}}>
-            <View style={{flex:0.5,borderWidth:1,flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingLeft:'6%'}}>
-                <TouchableOpacity onPress={()=>navigation.goBack() }>
-                    <Image source={require('../../statics/back.png')}  style={{backgroundColor:'#4e4060',width:30,height:30,borderRadius:100,borderWidth:1}}/>
-                </TouchableOpacity>
-                <View style={{flexDirection:'row'}}>
-                <Text style={{color:'white',alignSelf:'center',marginRight:10,fontFamily:'Poppins-Regular',fontSize:18,fontWeight:'600'}}>Support</Text>
-                </View>
-                <Text >'                 '</Text>
-            </View>
-            <View style={{flex:2,justifyContent:'space-evenly',paddingLeft:'6%',marginTop:30}}>
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Email</Text>
-                <Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>info@ott.com</Text>
-                   
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Phone No.</Text>
-                <Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>XXXXXXXXXXX</Text>
-                   
-               
-                <Text style={{color:'#6644B8',fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600'}}>Address</Text>
-                <Text style={{color:'white',fontFamily:'Poppins-Regular',fontSize:14,fontWeight:'400'}}>XXXXXXXXXXX</Text>
-                   
-           
-              
-            </View>
-           <View style={{flex:2}}></View>
+        <Text style={{paddingLeft:25,fontSize:11,fontFamily:'Poppins-Regular',marginTop:20,width:278,height:40,color:'black'}}>
+        Send us an email to info@reddoordevelopment.com
+        </Text>
+        <View style={{width:'100%',paddingLeft:-50 ,height:11,backgroundColor:'#E7E7E7',marginTop:20}}></View>
         </View>
     )
 }
 
-export default Support;
+export default Help;
