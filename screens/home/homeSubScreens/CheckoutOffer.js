@@ -111,6 +111,10 @@ const Checkout=({navigation})=>{
                         <Text style={{fontFamily:'Poppins-Medium',color:'#787878',fontSize:12,lineHeight:18,fontWeight:'500'}}>₹ 50/-</Text>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                        <Text style={{fontFamily:'Poppins-Medium',color:'#FF3737',fontSize:14,lineHeight:21,fontWeight:'600'}}>Discount</Text>
+                        <Text style={{fontFamily:'Poppins-Medium',color:'#FF3737',fontSize:12,lineHeight:18,fontWeight:'500'}}>₹ 50/-</Text>
+                    </View>
+                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                         <Text style={{fontFamily:'Poppins-Medium',color:'#464545',fontSize:14,lineHeight:21,fontWeight:'600'}}>Tip for professional</Text>
                         <Text style={{fontFamily:'Poppins-Medium',color:'black',fontSize:12,lineHeight:18,fontWeight:'500'}}>₹ 10/-</Text>
                     </View>

@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import {View,Text, StyleSheet, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IonIcon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import Header from '../../../components/Header';
 const oneS=(
     <View style={{flexDirection:'row'}}>
         <Image source={require('../../../statics/star.png')} />

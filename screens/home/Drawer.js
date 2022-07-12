@@ -14,6 +14,7 @@ import Support from './Support';
 import CustomSidebarMenu from '../../components/CustomSideNavbar';
 import Bookings from './Bookings';
 import RegisterPartner from './RegisterPartner';
+import Offers from './Offers';
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
 const Modal=()=>{
@@ -144,6 +145,25 @@ const MyDrawer=()=>{
               drawerIcon: ({focused, size}) => (
                 <Icon
                   name="share"
+                  size={25}
+                  color={'#FF3737'}
+                />
+           ),
+            drawerActiveTintColor:'#181725',
+            drawerActiveBackgroundColor:'none',
+            drawerContentContainerStyle:{display:'none'},
+            drawerLabelStyle:{color:'black'},
+            headerShown:false,
+            }}
+          />
+          <Drawer.Screen
+            name="Offers & Deals"
+            component={Offers}
+            
+            options={{
+              drawerIcon: ({focused, size}) => (
+                <Icon
+                  name="wc"
                   size={25}
                   color={'#FF3737'}
                 />
