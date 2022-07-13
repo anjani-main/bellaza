@@ -3,7 +3,7 @@ import {View,Text, StyleSheet, TouchableOpacity,ScrollView,TextInput,Modal} from
 import { useNavigation } from '@react-navigation/native';
 import { Button, Icon } from 'react-native-elements';
 import Header from '../../../components/Header';
-const Checkout=({navigation})=>{
+const CheckoutOffer=({navigation})=>{
 
 
     const [tips,setTips]=useState([5,10,20,'custom']);
@@ -111,8 +111,8 @@ const Checkout=({navigation})=>{
                         <Text style={{fontFamily:'Poppins-Medium',color:'#787878',fontSize:12,lineHeight:18,fontWeight:'500'}}>₹ 50/-</Text>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                        <Text style={{fontFamily:'Poppins-Medium',color:'#FF3737',fontSize:14,lineHeight:21,fontWeight:'600'}}>Discount</Text>
-                        <Text style={{fontFamily:'Poppins-Medium',color:'#FF3737',fontSize:12,lineHeight:18,fontWeight:'500'}}>₹ 50/-</Text>
+                        <Text style={{fontFamily:'Poppins-Medium',color:'#464545',fontSize:14,lineHeight:21,fontWeight:'600'}}>Discount</Text>
+                        <Text style={{fontFamily:'Poppins-Medium',color:'#FF3737',fontSize:12,lineHeight:18,fontWeight:'500'}}>-₹ 50/-</Text>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                         <Text style={{fontFamily:'Poppins-Medium',color:'#464545',fontSize:14,lineHeight:21,fontWeight:'600'}}>Tip for professional</Text>
@@ -170,4 +170,4 @@ const Checkout=({navigation})=>{
     )
 }
 
-export default Checkout;
+export default CheckoutOffer;

@@ -9,6 +9,7 @@ import Haircut from './homeSubScreens/Haircut';
 import Haircutdetails from './homeSubScreens/Haircutdetails';
 import Checkout from './homeSubScreens/Checkout';
 import Checkout2 from './homeSubScreens/Checkout2';
+import CheckoutOffer from './homeSubScreens/CheckoutOffer';
 
 const Stack=createStackNavigator();
 const NavigationHome=()=>{
@@ -30,6 +31,7 @@ const NavigationHome=()=>{
                  <Stack.Screen name="Haircutdetails" component={Haircutdetails}/>
                  <Stack.Screen name="Checkout" component={Checkout}/>
                  <Stack.Screen name="Checkout2" component={Checkout2}/>
+                 <Stack.Screen name="CheckoutOffer" component={CheckoutOffer}/>
                 
                 </>
               </Stack.Navigator>

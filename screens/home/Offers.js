@@ -2,11 +2,14 @@ import React, {useState} from "react";
 import {View,Text,TextInput,TouchableOpacity} from 'react-native';
 import { Button,Icon } from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 const Card=({name,dis,above,rm})=>{
+    const navigation=useNavigation();
+
     return(
         <>
-       
-        <View style={{width:'100%',height:80,alignSelf:'center',marginVertical:10,paddingHorizontal:10,flexDirection:'row',borderColor:'#E3E3E3',borderWidth:1,borderRadius:10}}>
+       <TouchableOpacity onPress={()=>navigation.navigate('CheckoutOffer')}>
+       <View style={{width:'100%',height:80,alignSelf:'center',marginVertical:10,paddingHorizontal:10,flexDirection:'row',borderColor:'#E3E3E3',borderWidth:1,borderRadius:10}}>
             <View style={{flex:2.6,justifyContent:'center'}}>
                 <Text style={{color:'black',fontSize:13,fontWeight:'600',lineHeight:19.5,marginBottom:10}}>{name} </Text>
                 <Text style={{fontFamily:'Poppins-Regular',fontWeight:'500',fontSize:9,color:'#748AF9',marginRight:15}}>Flat ₹ {dis}/- on booking above ₹{above}/-</Text>
@@ -15,6 +18,8 @@ const Card=({name,dis,above,rm})=>{
               {rm=='Apply'?(<Button title={'Apply'} titleStyle={{marginTop:-4,fontSize:12,color:'#FF3737'}} buttonStyle={{width:92,height:33,borderColor:'#FF3737',borderWidth:2,backgroundColor:'white',borderRadius:6}}/>):(<Button title={'Applied'} titleStyle={{color:'white',marginTop:-4,fontSize:12}} buttonStyle={{ borderRadius:6,width:92,height:33,borderColor:'#FF3737',borderWidth:2,backgroundColor:'#FF3737'}}/>)} 
             </View>
         </View>
+       </TouchableOpacity>
+    
         </>
     )
   }
