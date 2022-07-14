@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {View,Text, StyleSheet, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
+import Voice from '@react-native-community/voice';
+import Header from '../../../components/Header';
+
 const oneS=(
     <View style={{flexDirection:'row'}}>
         <Image source={require('../../../statics/star.png')} />
@@ -78,32 +81,108 @@ const ServiceScroll=({iName,service,key,category,changeCateg})=>{
         </View>
     )
 }
-const HomeContent=({navigation})=>{
-    const [category,setCategory]=useState('');
-    const changeCateg=(service)=>{
-        setCategory(service);
-        navigation.navigate(service)
-    }
+const VoiceST=()=>{
+    const [pitch, setPitch] = useState('');
+    const [error, setError] = useState('');
+    const [started, setStarted] = useState(false);
+    const [results, setResults] = useState([]);
+    const [search,setSearch]=useState()
+    const [partialResults, setPartialResults] = useState([]);
+    const  onSpeechStart = (e) => {
+        setStarted(true)
+    };
+    const onSpeechEnd = () => {
+        setStarted(false);
+    };
+    const onSpeechError = (e) => {
+        setError(JSON.stringify(e.error));
+    };
+    const onSpeechResults = (e) => {
+        setSearch(e.value[0])
+        setResults(e.value);
+        
+       
+       
+    };
+    const onSpeechPartialResults = (e) => {
+        setSearch(e.value[0])
+        // setPartialResults(e.value);
+        console.log("res",e.value[0]);
+      
+    };
+    const onSpeechVolumeChanged = (e) => {
+        setPitch(e.value);
+        // console.log(e.value);
+    };
+    const startSpeechRecognizing = async () => {
+        setPitch('')
+        setError('')
+        setStarted(true)
+        setResults([])
+        setPartialResults([])
+       
+        try {
+            await Voice.start('en-US',{EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS: 1000});
+            } catch (e) {
+            console.error(e);
+            }
+    };
+const stopSpeechRecognizing = async () => {
+
+        try {
+            setStarted(false);
+        	await Voice.stop();
+           
+        } catch (e) {
+        	console.error(e);
+        }
+    };
+    useEffect(()=>{
+        Voice.onSpeechStart = onSpeechStart;
+        Voice.onSpeechEnd = onSpeechEnd;
+        Voice.onSpeechError = onSpeechError;
+        Voice.onSpeechResults = onSpeechResults;
+        Voice.onSpeechPartialResults = onSpeechPartialResults;
+        Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
+    },[])
     return(
-        <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
-            <Header title="Home"/>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',paddingRight:0,alignSelf:'center'}}>
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-start',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:25,borderRadius:8,height:45}}>
+        <>
+         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',paddingRight:0,alignSelf:'center'}}>
+                
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:25,borderRadius:8,height:45}}>
                     <Icon
                         name="search"
                         size={25}
                         color="gray"
-                        iconStyle={{alignSelf:'center'}}
+                        // iconStyle={{alignSelf:'center'}}
                     />
                     <TextInput
-                        style={{width:'80%',borderWidth:0,borderRadius:0, color: 'white',alignSelf:'center',backgroundColor:'transparent',marginTop:0}}
+                        style={{width:'76%',borderWidth:0,borderRadius:0, color: 'black',alignSelf:'center',backgroundColor:'transparent',marginTop:0,overflow:'scroll'}}
                         multiline={true}
+                        horizontal={true}
                         editable={true}
-                        // onChangeText={(text)=>{setSearch(text)}}
-                        // value={search}
+                        onChangeText={(text)=>{setSearch(text)}}
+                        value={search}
                         placeholderTextColor = "gray"
                         placeholder=" Search for salon, Services etc"
                 ></TextInput>
+                    <View>
+                    {started==false?(
+                        <TouchableOpacity
+                            onPress={()=> startSpeechRecognizing() }
+                            style={{ marginVertical: 1 }}>
+                            <Icon name="mic" size={25}  color="gray"/>
+                        </TouchableOpacity>
+                    ):(
+                        <TouchableOpacity
+                            onPress={()=> stopSpeechRecognizing() }
+                            style={{ marginVertical: 1 }}>
+                            <Icon name="fiber-manual-record" size={25}  color="red"/>
+                        </TouchableOpacity>
+                    )}
+                       
+                    </View>
+               
                 </View>
                 <TouchableOpacity onPress={()=>navigation.navigate('Filters',{ns:4})}>
                     <View style={{alignItems:'center',width:40}}>
@@ -114,11 +193,41 @@ const HomeContent=({navigation})=>{
                 </TouchableOpacity>
                
             </View>
+        {/* <View style={{borderColor:'gray',borderWidth:1,width:'80%',alignSelf:'center'}}>
+        {started==false?
+            <TouchableOpacity
+                onPress={()=> startSpeechRecognizing() }
+                style={{ marginVertical: 100 }}>
+                 <Icon name="mic" size={35} />
+            </TouchableOpacity>
+            :
+            <TouchableOpacity
+                onPress={()=> stopSpeechRecognizing() }
+                style={{ marginVertical: 100 }}>
+                   <Icon name="fiber-manual-record" size={35} />
+            </TouchableOpacity>}
+           
+            </View> */}
+        </>
+        
+        )
+}
+const HomeContent=({navigation})=>{
+    const [category,setCategory]=useState('');
+    const changeCateg=(service)=>{
+        setCategory(service);
+        navigation.navigate(service)
+    }
+    return(
+        <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
+            <Header title="Home"/>
+            <VoiceST/>
+           
            <View style={{height:200,width:'100%',justifyContent:'center',alignItems:'center'}}>
            <Swiper
                 style={styles.wrapper}
                 activeDotColor="red"
-                activeDot={<View style={{backgroundColor: '#A900BD', width: 25, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+                activeDot={<View style={{backgroundColor: '#FF3737', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
                 dot={<View style={{backgroundColor: 'white' , width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,borderColor:'gray',borderWidth:1}} />}
             >
                 <View style={styles.slide1}>

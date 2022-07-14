@@ -19,7 +19,7 @@ const NavigationHome=()=>{
                 headerShown: false,
                 cardStyle: { backgroundColor: '#FFFFFF' },   
             }} 
-            initialRouteName={'Checkout2'}>
+            initialRouteName={'HomeContent'}>
                   
                 <> 
                 <Stack.Screen name="HomeContent" component={HomeContent} /> 
