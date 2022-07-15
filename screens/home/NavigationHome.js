@@ -10,6 +10,7 @@ import Haircutdetails from './homeSubScreens/Haircutdetails';
 import Checkout from './homeSubScreens/Checkout';
 import Checkout2 from './homeSubScreens/Checkout2';
 import CheckoutOffer from './homeSubScreens/CheckoutOffer';
+import BookingConfirmed from './homeSubScreens/BookingConfirmed';
 
 const Stack=createStackNavigator();
 const NavigationHome=()=>{
@@ -32,6 +33,7 @@ const NavigationHome=()=>{
                  <Stack.Screen name="Checkout" component={Checkout}/>
                  <Stack.Screen name="Checkout2" component={Checkout2}/>
                  <Stack.Screen name="CheckoutOffer" component={CheckoutOffer}/>
+                 <Stack.Screen name="BookingConfirmed" component={BookingConfirmed}/>
                 
                 </>
               </Stack.Navigator>

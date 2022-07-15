@@ -18,14 +18,15 @@ const Card=({slot})=>{
     { label: '12:00 AM', value: '12:00 AM' },
 
   ];
-const Checkout2=()=>{
+const Checkout2=({navigation})=>{
     const [time,setTime]=useState();
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false);
 
     useEffect(()=>{
-       
-    },[])
+        navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }});
+        return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined });
+    },[navigation])
 
     return (
         <View style={{backgroundColor:'white',flex:1}}>
@@ -35,7 +36,13 @@ const Checkout2=()=>{
                 <Text style={{fontFamily:'Poppins-Regular',color:'#FF3737',fontSize:20,lineHeight:22.5,marginTop:20,fontWeight:'600'}}>Loreal Salon & Spa</Text>
                 <Text style={{fontFamily:'Poppins-Medium',color:'black',fontSize:14,lineHeight:21,marginTop:20,fontWeight:'500'}}>Date</Text>
                 <TouchableOpacity onPress={()=>setOpen(true)}>
-                    <Text style={{color:'black', width:144,height:40,borderColor:'black',borderWidth:1,textAlign:'center',textAlignVertical:'center',borderRadius:6}}>{date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</Text>
+                    <View style={{color:'black', width:171,height:32,borderColor:'black',borderWidth:1,textAlign:'center',textAlignVertical:'center',borderRadius:6,justifyContent:'space-evenly',flexDirection:'row',alignItems:'center'}}>
+                        <Text style={{color:'black',fontSize:14}}>{date.getDate()}</Text>
+                        <Text style={{color:'black',fontSize:14}}>/</Text>
+                        <Text style={{color:'black',fontSize:14}}>{date.getMonth()+1}</Text>
+                        <Text style={{color:'black',fontSize:14}}>/</Text>
+                        <Text style={{color:'black',fontSize:14}}>{date.getFullYear()}</Text>
+                    </View>
                 </TouchableOpacity>
                 <DatePicker
                     modal
@@ -69,16 +76,15 @@ const Checkout2=()=>{
                        
                         />
                 <Text style={{fontFamily:'Poppins-Medium',color:'black',fontSize:14,lineHeight:21,marginTop:20,fontWeight:'500'}}>Select Slot</Text>
-                <View style={{flexWrap:'wrap',flexDirection:'row',justifyContent:'space-between',marginTop:10,width:'90%'}}>
-                    <Card slot='1:00 PM'/>
+                <View style={{flexWrap:'wrap',flexDirection:'row', display:'flex', justifyContent:'space-between',marginTop:10,width:'100%'}}>
                     <Card slot='1:00 PM'/>
                     <Card slot='1:00 PM'/>
                     <Card slot='1:00 PM'/>
                     <Card slot='1:00 PM'/>
                 </View>
             </View>
-            <View style={{paddingHorizontal:25,position:'absolute',top:'85%',width:'100%'}}>
-                <Button title={'Checkout & Pay'} buttonStyle={{backgroundColor:'#FF3737',height:57,borderRadius:10,width:'100%'}} titleStyle={{color:'white'}}/>
+            <View style={{paddingHorizontal:25,width:'100%',position:'absolute',top:'88%'}}>
+                <Button title={'Checkout & Pay'} onPress={()=>navigation.navigate('BookingConfirmed')} buttonStyle={{backgroundColor:'#FF3737',height:57,borderRadius:10,width:'100%'}} titleStyle={{color:'white'}}/>
             </View>
           
             

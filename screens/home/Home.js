@@ -10,6 +10,8 @@ import NavigationHome from './NavigationHome';
 import NavigationFavourite from './NavigationFavourite';
 
 import MyDrawer from './Drawer';
+import Settings from './Setting';
+import Notification from './Notification';
 
 
 const Tab=createBottomTabNavigator();
@@ -79,7 +81,7 @@ const Home=()=>{
             />
               <Tab.Screen
                 name="Notifications"
-                component={NavigationFavourite}
+                component={Notification}
                 options={{
                     header:()=>{
                         return <Header title="Notifications"/>
@@ -93,7 +95,7 @@ const Home=()=>{
             />
               <Tab.Screen
                 name="Settings"
-                component={NavigationFavourite}
+                component={Settings}
                 options={{
                     header:()=>{
                         return <Header title="Settings"/>

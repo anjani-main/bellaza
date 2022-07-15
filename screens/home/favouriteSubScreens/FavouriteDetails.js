@@ -1,13 +1,9 @@
 import React,{useState} from 'react';
 import {View,Text, StyleSheet,ImageBackground, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Icon } from 'react-native-elements';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from '../../../components/Header';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import Accordion from './Accordion';
+import { useNavigation } from '@react-navigation/native';
+import Accordion from '../homeSubScreens/Accordion';
 const oneS=(
   <View style={{flexDirection:'row'}}>
       <Image source={require('../../../statics/star.png')} style={{width:20,height:20}} />
@@ -63,7 +59,8 @@ const Card=({name,time,price,duration,rm})=>{
   )
 }
 
-const Services=({navigation})=>{
+const Services=()=>{
+  const navigation=useNavigation();
   return(
     <View style={{backgroundColor:'white', width:'100%',alignItems:'flex-start'}}>
     <Accordion
@@ -130,7 +127,7 @@ const About=()=>{
     </View>
   )
 }
-const Haircutdetails=({navigation})=>{
+const FavouriteDetails=({navigation})=>{
     const [category,setCategory]=useState('Haircut');
     const [tab,setTab]=useState('services');
     return(
@@ -157,13 +154,13 @@ const Haircutdetails=({navigation})=>{
               <Text style={{fontFamily:'Poppins-Medium',fontSize:17,color:'black',fontWeight:'600',lineHeight:25.5,borderBottomColor:'#FF3737',borderBottomWidth:(tab=='about'?2:0)}}>About</Text>
               </TouchableOpacity>
             </View>
-            {tab=='services'?(<Services navigation={navigation}/>):(<About/>)}
+           {tab=='services'?<Services />:<About/>}
             </View>
         </ScrollView>
     )
 }
 
-export default Haircutdetails;
+export default FavouriteDetails;
 const styles = StyleSheet.create({
     wrapper: {
         marginTop:30

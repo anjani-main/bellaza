@@ -163,7 +163,7 @@ const CheckoutOffer=({navigation})=>{
                 </TouchableOpacity>
             )}
            
-            <Button title={'Checkout'} buttonStyle={{backgroundColor:'#FF3737',width:309,height:57,borderRadius:10,width:'100%'}} titleStyle={{color:'white'}}/>
+            <Button title={'Checkout'} onPress={()=>navigation.navigate('Checkout2')} buttonStyle={{backgroundColor:'#FF3737',width:309,height:57,borderRadius:10,width:'100%'}} titleStyle={{color:'white'}}/>
        
            </View>
         </ScrollView>

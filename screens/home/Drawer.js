@@ -163,7 +163,7 @@ const MyDrawer=()=>{
             options={{
               drawerIcon: ({focused, size}) => (
                 <Icon
-                  name="wc"
+                  name="local-offer"
                   size={25}
                   color={'#FF3737'}
                 />

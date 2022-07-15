@@ -25,7 +25,7 @@ const Account=({navigation})=>{
       },[]);
       
     return(
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:'white',height:700}}>
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:'white',height:720}}>
         <View style={{backgroundColor:'white',paddingHorizontal:25}}>
             <View style={headerStyles.container}>
             <TouchableOpacity onPress={()=>navigation.openDrawer()}>
