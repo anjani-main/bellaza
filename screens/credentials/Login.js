@@ -8,9 +8,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { color } from "react-native-reanimated";
 import { CheckBox } from 'react-native-elements'
 
-const Register=({navigation})=>{
+const Login=({navigation})=>{
     const [isEnterNamePressed,setIsEnterNamePressed]=useState(false);
-    const [texti,setTextI]=useState()
+    const [texti,setTextI]=useState();
+    const [gender,setGender]=useState('male');
+
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
@@ -42,10 +44,22 @@ const Register=({navigation})=>{
             
             <View style={{flexDirection:'row',justifyContent:'space-evenly',width:'80%',alignSelf:'center',alignItems:'center'}}>
                 <Text style={{...style.tStyle,fontWeight:'500',fontSize:13}}>Gender</Text>
-                <View style={{backgroundColor:'red',borderRadius:100,width:40,height:40,justifyContent:'center',alignItems:'center'}}><Text><FontAwesome5 onPress={()=>onPress()} name={'male'}  size={26} style={{color:'white'}} /></Text></View>
+                <TouchableOpacity onPress={()=>setGender('male')}>
+                <View style={{backgroundColor:(gender=='male'?'#FF3737':'white'),borderRadius:100,width:40,height:40,justifyContent:'center',alignItems:'center',borderColor:'#FF3737',borderWidth:1}}>
+                   
+                        {gender=='male'?<Image source={require('../../statics/malew.png')} />:<Image source={require('../../statics/male.png')} />}
+                 
+                </View>
+                </TouchableOpacity>
             
                 <Text style={{fontWeight:'500',fontSize:13,lineHeight:20,...style.tStyle}}>or</Text>
-                <View style={{backgroundColor:'red',borderRadius:100,width:40,height:40,justifyContent:'center',alignItems:'center'}}><Text><FontAwesome5 onPress={()=>onPress()} name={'female'}  size={26} style={{color:'white'}} /></Text></View>
+                <TouchableOpacity onPress={()=>setGender('female')}>
+                <View style={{backgroundColor:(gender=='female'?'#FF3737':'white'),borderRadius:100,width:40,height:40,justifyContent:'center',alignItems:'center',borderColor:'#FF3737',borderWidth:1}}>
+                  
+                        {gender=='female'?<Image source={require('../../statics/femalew.png')}/>:<Image source={require('../../statics/female.png')}/>}
+                
+                </View>
+                </TouchableOpacity>
             </View>
             
             <Button title={'Login'} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
@@ -68,7 +82,7 @@ const Register=({navigation})=>{
     )
 }
 
-export default Register;
+export default Login;
 const style=StyleSheet.create({
     tStyle:{
         fontFamily:'Poppins-Regular',

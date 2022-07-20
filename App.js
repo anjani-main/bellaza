@@ -28,7 +28,17 @@ import EnterOTP from './screens/credentials/EnterOTP';
    headerShown: false,
    cardStyle: { backgroundColor: '#FFFFFF' },
  };
- 
+ const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
  
  const App= () => {
    const [initialRouteName,setinitialRouteName] = useState(false);
@@ -52,13 +62,48 @@ import EnterOTP from './screens/credentials/EnterOTP';
                   
                 <> 
                 
-                <Stack.Screen name="HomeVP" component={Home} /> 
-                <Stack.Screen name="GetOTP" component={GetOTP} /> 
-                <Stack.Screen name="EnterOTP" component={EnterOTP} /> 
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Start" component={Start} />
-                <Stack.Screen name="Home" component={MyDrawer}/>
-                <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="HomeVP" component={Home}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/> 
+                <Stack.Screen name="GetOTP" component={GetOTP}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/> 
+                <Stack.Screen name="EnterOTP" component={EnterOTP}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/> 
+                <Stack.Screen name="Login" component={Login}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/>
+                <Stack.Screen name="Start" component={Start}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/>
+                <Stack.Screen name="Home" component={MyDrawer} options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/>
+                <Stack.Screen name="Register" component={Register}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/>
                 {/* <Stack.Screen name="GetOTP" component={GetOTP} />  */}
                 {/* <Stack.Screen name="Login" component={Login} /> */}
                 </>

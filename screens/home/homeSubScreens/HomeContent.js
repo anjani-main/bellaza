@@ -68,13 +68,20 @@ const BannerScroll=({nav,source})=>{
     )
 }
 
-const ServiceScroll=({iName,service,key,category,changeCateg})=>{
+const ServiceScroll=({source,service,key,category,changeCateg})=>{
     return(
         <View  style={{borderRadius:8,marginHorizontal:20,height:70,width:70}}>
             <TouchableOpacity onPress={()=>changeCateg(service)}>
-                <View style={{borderRadius:8,height:65,width:66,backgroundColor:(category==service?'#FF3737':'#F6F6F6'),justifyContent:'center'}}>
-                    <Icon name={'email'} size={28} color={category==service?'white':'#FF3737'}/>
+                {category==service? ( 
+                <LinearGradient  colors={['#FF5353','#FF5353','#FF5353', '#9A0000DB']} style={{width:'100%',height:65,alignItems:'center',justifyContent:'center',borderRadius:8}}>
+                     <Image source={source}  style={{width:25, height:25,alignSelf:'center'}}/>
+                </LinearGradient>)
+                :(
+                <View style={{borderRadius:8,height:65,width:66,backgroundColor:'#F6F6F6',justifyContent:'center'}}>
+                    <Image source={source}  style={{width:25, height:25,alignSelf:'center'}}/>
                 </View>
+                )}
+                
             </TouchableOpacity>
            
            <Text style={{fontFamily:'Poppins-Regular',fontSize:11,fontWeight:'500',lineHeight:17,color:'black',textAlign:'center',textTransform:'capitalize',marginTop:5}}>{service}</Text>
@@ -245,14 +252,14 @@ const HomeContent=({navigation})=>{
                 </View>
             </Swiper>
            </View>
-           <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Services</Text>
-           <View style={{height:85,marginBottom:0}}>
+           <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,paddingBottom:10}}>Top Services</Text>
+           <View style={{height:95,marginBottom:0}}>
             <ScrollView  horizontal={true} >
-                <ServiceScroll changeCateg={changeCateg} iName={'calendar'} service={'Haircut'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} iName={'calendar'} service={'Haircut2'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} iName={'calendar'} service={'Haircu'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} iName={'calendar'} service={'Hairct'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} iName={'calendar'} service={'Haicut'} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category=='Haircut'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={'Haircut'} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category=='Massage'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={'Massage'} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category=='Spa'?require('../../../statics/spaw.png'):require('../../../statics/spa.png'))} service={'Spa'} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category=='Shaving'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={'Shaving'} category={category}/>
+                {/* <ServiceScroll changeCateg={changeCateg} source={require('../../../statics/banner.png')} service={'Haicut'} category={category}/> */}
                 
             </ScrollView>
            </View>

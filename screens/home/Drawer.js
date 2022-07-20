@@ -16,7 +16,18 @@ import Bookings from './Bookings';
 import RegisterPartner from './RegisterPartner';
 import Offers from './Offers';
 const Drawer = createDrawerNavigator();
-const RootStack = createStackNavigator();
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+ 
 const Modal=()=>{
   useEffect(()=>{
     console.log("Hi")
@@ -69,6 +80,10 @@ const MyDrawer=()=>{
           component={Home}
           options={{
           drawerActiveTintColor:'#181725',
+           transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
           drawerActiveBackgroundColor:'none',
           drawerContentContainerStyle:{display:'none'},
           drawerLabelStyle:{display:'none'},
@@ -89,6 +104,10 @@ const MyDrawer=()=>{
                 />
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -110,6 +129,10 @@ const MyDrawer=()=>{
              />
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -123,13 +146,13 @@ const MyDrawer=()=>{
             
             options={{
               drawerIcon: ({focused, size}) => (
-                <MaterialCommunityIcons
-                  name="ticket-percent-outline"
-                  size={25}
-                  color={'#FF3737'}
-                />
+                <Image source={require('../../statics/bookings.png')}/>
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -143,13 +166,13 @@ const MyDrawer=()=>{
             
             options={{
               drawerIcon: ({focused, size}) => (
-                <Icon
-                  name="share"
-                  size={25}
-                  color={'#FF3737'}
-                />
+                <Image source={require('../../statics/share.png')}/>
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -162,13 +185,13 @@ const MyDrawer=()=>{
             
             options={{
               drawerIcon: ({focused, size}) => (
-                <Icon
-                  name="local-offer"
-                  size={25}
-                  color={'#FF3737'}
-                />
+               <Image source={require('../../statics/offers.png')}/>
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -182,13 +205,13 @@ const MyDrawer=()=>{
             
             options={{
               drawerIcon: ({focused, size}) => (
-                <Icon
-                  name="wc"
-                  size={25}
-                  color={'#FF3737'}
-                />
+                <Image source={require('../../statics/rap.png')}/>
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'black'},
@@ -210,6 +233,10 @@ const MyDrawer=()=>{
               />
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{borderWidth:1,borderColor:'red'},
             drawerLabelStyle:{color:'white'},
@@ -229,6 +256,10 @@ const MyDrawer=()=>{
               />
            ),
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{borderWidth:1,borderColor:'red'},
             drawerLabelStyle:{color:'white'},
@@ -241,7 +272,12 @@ const MyDrawer=()=>{
             name="Privacy policy"
             component={PrivacyPolicy}
             options={{
+              
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerLabelStyle:{color:'#B6B5B5',marginTop:35},
             headerShown:false,
@@ -254,6 +290,10 @@ const MyDrawer=()=>{
             
             options={{
             drawerActiveTintColor:'#181725',
+             transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
             drawerActiveBackgroundColor:'none',
             drawerContentContainerStyle:{display:'none'},
             drawerLabelStyle:{color:'#B6B5B5'},
@@ -265,6 +305,10 @@ const MyDrawer=()=>{
           component={Support}
           options={{
           drawerActiveTintColor:'#181725',
+           transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
           drawerActiveBackgroundColor:'none',
           drawerContentContainerStyle:{display:'none'},
           drawerLabelStyle:{color:'#B6B5B5'},
@@ -276,6 +320,10 @@ const MyDrawer=()=>{
           component={Account}
           options={{
           drawerActiveTintColor:'#181725',
+           transitionSpec: {
+                      open: config,
+                      close: config,
+                    },
           drawerActiveBackgroundColor:'none',
           drawerLabelStyle:{display:'none'},
           headerShown:false,
