@@ -48,7 +48,7 @@ import EnterOTP from './screens/credentials/EnterOTP';
            <>
         <AuthContext.Provider value={'authContext'}> 
               <NavigationContainer >
-                <Stack.Navigator screenOptions={globalScreenOptions} initialRouteName={'Home'}>
+                <Stack.Navigator screenOptions={globalScreenOptions} initialRouteName={'Start'}>
                   
                 <> 
                 

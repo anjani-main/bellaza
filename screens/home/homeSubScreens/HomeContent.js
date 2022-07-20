@@ -7,25 +7,25 @@ import Voice from '@react-native-community/voice';
 import Header from '../../../components/Header';
 
 const oneS=(
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',marginTop:-5}}>
         <Image source={require('../../../statics/star.png')} />
     </View>
 )
 const twoS=(
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',marginTop:-5}}>
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
     </View>
 )
 const threeS=(
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',marginTop:-5}}>
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
     </View>
 )
 const fourS=(
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',marginTop:-5}}>
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
@@ -33,7 +33,7 @@ const fourS=(
     </View>
 )
 const fiveS=(
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',marginTop:-5}}>
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
         <Image source={require('../../../statics/star.png')} />
@@ -46,14 +46,14 @@ const CardScroll=({source,nav,val,key})=>{
     
     return(
         <TouchableOpacity >
-            <Image style={{marginHorizontal:20,width:200,height:133,borderRadius:10}} source={source}/>
+            <Image style={{marginHorizontal:20,width:200,height:130,borderRadius:10}} source={source}/>
             <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>Loreal Salon & Spa</Text>
             <View style={{flexDirection:'row',justifyContent:'space-evenly',width:200,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{flex:1,fontFamily:'Poppins-Regular',fontSize:12,fontWeight:'600',lineHeight:18,color:'#4CAF50',paddingLeft:25,marginBottom:1}}>Open</Text>
                 <Icon name="schedule" size={15} color="#FF3737" style={{flex:1}}/>
                 <Text style={{flex:3,fontFamily:'Poppins-Regular',fontSize:12,fontWeight:'500',lineHeight:18,color:'black',paddingLeft:4,marginBottom:1}}>10 Am to 11:30 Pm</Text>
             </View>
-            <View style={{flexDirection:'row',justifyContent:'space-evenly',width:198,justifyContent:'center',alignItems:'center',paddingLeft:25}}>
+            <View style={{flexDirection:'row',justifyContent:'space-evenly',width:198,alignItems:'center',paddingLeft:25}}>
                 {val==5?(fiveS):((val==4)?(fourS):((val==3)?(threeS):((val==2)?(twoS):(oneS))))}
                 <Text style={{flex:1,fontFamily:'Poppins-Regular',fontSize:10,fontWeight:'500',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>11.5k Ratings</Text>
             </View>
@@ -149,15 +149,16 @@ const stopSpeechRecognizing = async () => {
         <>
          <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',paddingRight:0,alignSelf:'center'}}>
                 
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:25,borderRadius:8,height:45}}>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:5,borderRadius:8,height:45}}>
                     <Icon
                         name="search"
-                        size={25}
+                        size={24}
                         color="gray"
-                        // iconStyle={{alignSelf:'center'}}
+                        iconStyle={{alignSelf:'flex-start'}}
                     />
                     <TextInput
                         style={{width:'76%',borderWidth:0,borderRadius:0, color: 'black',alignSelf:'center',backgroundColor:'transparent',marginTop:0,overflow:'scroll'}}
+                    
                         multiline={true}
                         horizontal={true}
                         editable={true}
@@ -186,7 +187,7 @@ const stopSpeechRecognizing = async () => {
                 </View>
                 <TouchableOpacity onPress={()=>navigation.navigate('Filters',{ns:4})}>
                     <View style={{alignItems:'center',width:40}}>
-                        <LinearGradient  colors={['#FF5353', '#9A0000DB']} style={{width:'100%',height:45,alignItems:'center',justifyContent:'center',borderRadius:8}}>
+                        <LinearGradient  colors={['#FF5353','#FF5353','#FF5353', '#9A0000DB']} style={{width:'100%',height:45,alignItems:'center',justifyContent:'center',borderRadius:8}}>
                             <Icon name="tune" size={30} color="white"/>
                     </LinearGradient>
                     </View>

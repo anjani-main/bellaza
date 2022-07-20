@@ -19,13 +19,13 @@ const EnterOTP=({navigation})=>{
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
           
         <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>
-            <Text style={{...style.tStyle,fontWeight:'600',fontSize:20,lineHeight:30,}}>Enter OTP</Text>
+            <Text style={{fontFamily:'Poppins-Bold',alignSelf:'center',color:'black',fontWeight:'600',fontSize:20,lineHeight:30}}>Enter OTP</Text>
             <Text style={{...style.tStyle,fontWeight:'500',fontSize:14,lineHeight:21,width:'60%',alignSelf:'center'}}>Please enter the OTP that you have recieved on your phone number</Text>
                 <OTPTextView 
-                    ref={e => {otpInputRef.current=val; console.log(e)}}
+                    ref={e => {otpInputRef.current=val;}}
                     handleTextChange={(e)=>{setVal(e);}}
                     containerStyle={{color:'white',width:'80%',alignSelf:'center'}}
-                    textInputStyle={{backgroundColor:'white',borderRadius:10,color:'black',borderColor:'#FF3737',borderWidth:1}}
+                    textInputStyle={{ borderWidth: 2, borderRadius:8, borderBottomWidth: 2, marginTop:0 }}
                     tintColor="#FF3737"
                     offTintColor="#FF3737"
                 />

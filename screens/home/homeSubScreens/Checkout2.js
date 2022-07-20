@@ -6,10 +6,11 @@ import { Dropdown } from 'react-native-element-dropdown';
 const Card=({slot})=>{
     return(
         <>
-       
+       <TouchableOpacity>
         <View style={{width:144,height:40,alignSelf:'center',justifyContent:'center',borderColor:'#D4D4D4',borderWidth:1,borderRadius:6,marginTop:15}}>
            <Text style={{fontFamily:'Poppins-Medium',fontSize:12,fontWeight:'400',color:'black',lineHeight:18,textAlign:'center'}}>{slot}</Text>
         </View>
+        </TouchableOpacity>
         </>
     )
   }

@@ -238,18 +238,18 @@ const MyDrawer=()=>{
          */}
           <Drawer.Screen
           
-            name="PrivacyPolicy"
+            name="Privacy policy"
             component={PrivacyPolicy}
             options={{
             drawerActiveTintColor:'#181725',
             drawerActiveBackgroundColor:'none',
-            drawerLabelStyle:{color:'#B6B5B5'},
+            drawerLabelStyle:{color:'#B6B5B5',marginTop:35},
             headerShown:false,
           }}
           />
           <Drawer.Screen
           
-            name="TermsOfUse"
+            name="Term of Use"
             component={TermsOfUse}
             
             options={{

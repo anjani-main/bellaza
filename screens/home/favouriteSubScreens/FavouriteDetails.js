@@ -4,6 +4,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Button, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import Accordion from '../homeSubScreens/Accordion';
+import Swiper from 'react-native-swiper';
+
 const oneS=(
   <View style={{flexDirection:'row'}}>
       <Image source={require('../../../statics/star.png')} style={{width:20,height:20}} />
@@ -132,8 +134,27 @@ const FavouriteDetails=({navigation})=>{
     const [tab,setTab]=useState('services');
     return(
         <ScrollView style={{flex:1}}>
-          <LinearGradient  colors={['white', 'black','black','black']} style={{width:'100%',height:280,alignItems:'center',justifyContent:'center',borderRadius:8,flex:1}}>
-            <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.6}}></ImageBackground>
+          <LinearGradient  colors={['white','white','white','white','white','white','black','black','black','black','black','black']} style={{width:'100%',height:280,alignItems:'center',justifyContent:'center',borderRadius:8,flex:1}}>
+            {/* <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.6}}></ImageBackground> */}
+            <Swiper
+                style={styles.wrapper}
+                activeDotColor="red"
+                activeDot={<View style={{backgroundColor: '#FF3737', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+                dot={<View style={{backgroundColor: 'white' , width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,borderColor:'gray',borderWidth:1}} />}
+            >
+                <View style={styles.slide1}>
+                    <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide2}>
+                    <ImageBackground source={require('../../../statics/banner.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide3}>
+                     <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide4}>
+                <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+            </Swiper>
           </LinearGradient>
            
             <View style={{backgroundColor:'white', width:'100%',alignItems:'flex-start',paddingHorizontal:25,borderTopLeftRadius:30,borderTopRightRadius:30,position:'relative',top:-70,flex:2,marginBottom:-70}} >
@@ -163,23 +184,23 @@ const FavouriteDetails=({navigation})=>{
 export default FavouriteDetails;
 const styles = StyleSheet.create({
     wrapper: {
-        marginTop:30
+        marginTop:0
     },
     slide1: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide2: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide3: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide4: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor:'none'
       },
     text: {
       color: '#fff',

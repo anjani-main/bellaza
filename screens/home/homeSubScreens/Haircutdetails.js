@@ -1,13 +1,11 @@
 import React,{useState} from 'react';
 import {View,Text, StyleSheet,ImageBackground, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Icon } from 'react-native-elements';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from '../../../components/Header';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import Accordion from './Accordion';
+import { useNavigation } from '@react-navigation/native';
+import Accordion from '../homeSubScreens/Accordion';
+import Swiper from 'react-native-swiper';
+
 const oneS=(
   <View style={{flexDirection:'row'}}>
       <Image source={require('../../../statics/star.png')} style={{width:20,height:20}} />
@@ -63,7 +61,8 @@ const Card=({name,time,price,duration,rm})=>{
   )
 }
 
-const Services=({navigation})=>{
+const Services=()=>{
+  const navigation=useNavigation();
   return(
     <View style={{backgroundColor:'white', width:'100%',alignItems:'flex-start'}}>
     <Accordion
@@ -130,13 +129,32 @@ const About=()=>{
     </View>
   )
 }
-const Haircutdetails=({navigation})=>{
+const  Haircutdetails=({navigation})=>{
     const [category,setCategory]=useState('Haircut');
     const [tab,setTab]=useState('services');
     return(
         <ScrollView style={{flex:1}}>
-          <LinearGradient  colors={['white', 'black','black','black']} style={{width:'100%',height:280,alignItems:'center',justifyContent:'center',borderRadius:8,flex:1}}>
-            <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.6}}></ImageBackground>
+          <LinearGradient  colors={['white','white','white','white','white','white','black','black','black','black','black','black']} style={{width:'100%',height:280,alignItems:'center',justifyContent:'center',borderRadius:8,flex:1}}>
+            {/* <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.6}}></ImageBackground> */}
+            <Swiper
+                style={styles.wrapper}
+                activeDotColor="red"
+                activeDot={<View style={{backgroundColor: '#FF3737', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+                dot={<View style={{backgroundColor: 'white' , width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,borderColor:'gray',borderWidth:1}} />}
+            >
+                <View style={styles.slide1}>
+                    <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide2}>
+                    <ImageBackground source={require('../../../statics/banner.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide3}>
+                     <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+                <View style={styles.slide4}>
+                <ImageBackground source={require('../../../statics/poster.png')} resizeMode="cover" style={{width:'100%',height:'100%'}} imageStyle={{opacity:0.8}}></ImageBackground>
+                </View>
+            </Swiper>
           </LinearGradient>
            
             <View style={{backgroundColor:'white', width:'100%',alignItems:'flex-start',paddingHorizontal:25,borderTopLeftRadius:30,borderTopRightRadius:30,position:'relative',top:-70,flex:2,marginBottom:-70}} >
@@ -157,7 +175,7 @@ const Haircutdetails=({navigation})=>{
               <Text style={{fontFamily:'Poppins-Medium',fontSize:17,color:'black',fontWeight:'600',lineHeight:25.5,borderBottomColor:'#FF3737',borderBottomWidth:(tab=='about'?2:0)}}>About</Text>
               </TouchableOpacity>
             </View>
-            {tab=='services'?(<Services navigation={navigation}/>):(<About/>)}
+           {tab=='services'?<Services />:<About/>}
             </View>
         </ScrollView>
     )
@@ -166,23 +184,23 @@ const Haircutdetails=({navigation})=>{
 export default Haircutdetails;
 const styles = StyleSheet.create({
     wrapper: {
-        marginTop:30
+        marginTop:0
     },
     slide1: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide2: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide3: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor:'none'
     },
     slide4: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor:'none'
       },
     text: {
       color: '#fff',

@@ -19,7 +19,7 @@ const Help=({navigation})=>{
         </View>
 
         <Text style={{paddingLeft:25,fontSize:11,fontFamily:'Poppins-Regular',marginTop:30,width:278,height:42,color:'black'}}>
-        Call 509 968 8876 to speak to a support representative now
+        Call +91 766 800 9430 to speak to a support representative now
         </Text>
         <View style={{width:'100%',paddingLeft:-50 ,height:11,backgroundColor:'#E7E7E7',marginTop:5}}></View>
    
@@ -32,7 +32,7 @@ const Help=({navigation})=>{
         </View>
       
         <Text style={{paddingLeft:25,fontSize:11,fontFamily:'Poppins-Regular',marginTop:20,width:278,height:40,color:'black'}}>
-        Send us an email to info@reddoordevelopment.com
+        Send us an email to SUPPORT@BELLAZZA.IN , INFO@BELLAZZA.IN
         </Text>
         <View style={{width:'100%',paddingLeft:-50 ,height:11,backgroundColor:'#E7E7E7',marginTop:20}}></View>
         </View>

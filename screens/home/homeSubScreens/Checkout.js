@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {View,Text, StyleSheet, TouchableOpacity,ScrollView,TextInput,Modal} from 'react-native';
+import {View,Text, StyleSheet, TouchableOpacity,ScrollView,TextInput,Modal,TouchableWithoutFeedback} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button, Icon } from 'react-native-elements';
 import Header from '../../../components/Header';
@@ -58,39 +58,51 @@ const Checkout=({navigation})=>{
     return(
         <ScrollView style={{backgroundColor:'white',flex:1}}>
             <Modal 
-                animationType='slide'
+                animationType="fade"
                 transparent={true}
                 visible={showModal}
+                onRequestClose={() => {
+                   setShowModal(false)
+                }}
                 >
-                    <View style={{backgroundColor:'white',position:'absolute',top:'25%',borderRadius:15,justifyContent:'space-evenly',width:'80%',alignSelf:'center',padding:30,elevation:600}}>
-                        <Text style={{fontFamily:'Poppins-Medium',fontSize:18,fontWeight:'600',lineHeight:27,color:'#FF3737'}}>Booking For </Text>
-                        <View style={{marginTop:20}}>
-                            <TextInput 
-                                style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
-                                editable={true}
-                                value={bse.name}
-                                onChangeText={(text)=>{setBse({...bse,name:text})}}
-                                placeholder="Name"
-                                ></TextInput>
-                            <TextInput 
-                                style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
-                                editable={true}
-                                value={bse.phone}
-                                onChangeText={(text)=>{setBse({...bse,phone:text})}}
-                                placeholder="Phone Number"
-                                ></TextInput>
-                            <TextInput 
-                                style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
-                                editable={true}
-                                value={bse.age}
-                                onChangeText={(text)=>{setBse({...bse,age:text})}}
-                                placeholder="Age"
-                                ></TextInput>
-                          <Button onPress={()=>{onCLickbse();}} title={'Add'} buttonStyle={{backgroundColor:'#FF3737',width:93,height:40,borderRadius:10,alignSelf:'center',marginTop:30}} titleStyle={{color:'white'}}/>
-                        </View>
-                        
+                <TouchableOpacity 
+                        style={{height:'100%',backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                        activeOpacity={1} 
+                        onPressOut={() => {setShowModal(false)}}
+                    >
+                        <TouchableWithoutFeedback>
+                        <View style={{backgroundColor:'white',position:'absolute',top:'25%',borderRadius:15,justifyContent:'space-evenly',width:'80%',alignSelf:'center',padding:30,elevation:600}}>
+                                    <Text style={{fontFamily:'Poppins-Medium',fontSize:18,fontWeight:'600',lineHeight:27,color:'#FF3737'}}>Booking For </Text>
+                                    <View style={{marginTop:20}}>
+                                        <TextInput 
+                                            style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
+                                            editable={true}
+                                            value={bse.name}
+                                            onChangeText={(text)=>{setBse({...bse,name:text})}}
+                                            placeholder="Name"
+                                            ></TextInput>
+                                        <TextInput 
+                                            style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
+                                            editable={true}
+                                            value={bse.phone}
+                                            onChangeText={(text)=>{setBse({...bse,phone:text})}}
+                                            placeholder="Phone Number"
+                                            ></TextInput>
+                                        <TextInput 
+                                            style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
+                                            editable={true}
+                                            value={bse.age}
+                                            onChangeText={(text)=>{setBse({...bse,age:text})}}
+                                            placeholder="Age"
+                                            ></TextInput>
+                                    <Button onPress={()=>{onCLickbse();}} title={'Add'} buttonStyle={{backgroundColor:'#FF3737',width:93,height:40,borderRadius:10,alignSelf:'center',marginTop:30}} titleStyle={{color:'white'}}/>
+                                    </View>
+                                    
 
-                    </View>
+                                </View>
+                        </TouchableWithoutFeedback>
+                    </TouchableOpacity>  
+                
                 </Modal>
             <Text style={{color:'black',fontWeight:'600',fontSize:18,fontFamily:'Poppins-Medium',textAlign:'center',justifyContent:'center', lineHeight:26,marginTop:10}}>Checkout</Text>
             <View style={{paddingHorizontal:25,marginBottom:30}}>
