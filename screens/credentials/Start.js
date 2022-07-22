@@ -1,7 +1,5 @@
 import React,{useState,useEffect} from "react";
 import {useColorScheme,View,ActivityIndicator,Image} from 'react-native';
-import MoviesWatch from '../../components/moviesWatch.js'
-import { Button } from "react-native-elements";
 
 
 const Start=({navigation})=>{

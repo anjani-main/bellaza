@@ -1,19 +1,45 @@
 
 import React,{useState,useEffect,useRef} from "react";
 import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text, useColorScheme,View,TextInput,TouchableOpacity,Image} from 'react-native';
-import MoviesWatch from '../../components/moviesWatch.js'
 import { Button, Icon } from "react-native-elements";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { color } from "react-native-reanimated";
-import { CheckBox } from 'react-native-elements'
-
+import { CheckBox } from 'react-native-elements';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import generateToken from '../../components/jwt';
 const Register=({navigation})=>{
     const [isEnterNamePressed,setIsEnterNamePressed]=useState(false);
+    const [userd,setUserd]=useState({name:'',email_mobile:'',password:'',gender:'',age:''})
     const [texti,setTextI]=useState();
     const [terms,setTerms]=useState(false);
     const [gender,setGender]=useState('male');
 
+    const registerfn=async()=>{
+        const token=await generateToken({name:'anjnai'});
+        console.log("Token: ",token);
+        if(token!='error'){
+            const regRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                user_signup:1,
+                access_key:6808,
+                age:userd.age,
+                name:userd.name,
+                email_mobile:userd.email_mobile,
+                password:userd.password,
+                gender:gender
+            },{
+                headers:{
+                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTY1OTQzMDEsImlzcyI6ImF1cmEiLCJleHAiOjE2NTY3MDIzMDEsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.2z1TqaoC8B7AAeLRI3E4V8twuw96g1guIJuMKkfC89Y`
+                }
+            });
+            console.log(regRes);
+            if(regRes.data.error==false){
+                await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:regRes.data.user_id,name:regRes.data.name,email_mobile:regRes.data.email_mobile,gender:regRes.data.gender,age:regRes.data.age}));
+    
+                navigation.navigate('Home');
+            }
+        }
+        
+    }
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
@@ -24,8 +50,8 @@ const Register=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='name'?'#F0F0F0':'white'),elevation:(texti=='name'?5:0),paddingLeft:15,marginTop:30}}
                     multiline={true}
                     editable={true}
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,name:text})}}
+                    value={userd.name}
                     onFocus={()=>setTextI('name')}
                     placeholderTextColor = "gray"
                     placeholder="  Name"
@@ -34,8 +60,8 @@ const Register=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='phone'?'#F0F0F0':'white'),elevation:(texti=='phone'?5:0),paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,email_mobile:text})}}
+                    value={userd.email_mobile}
                     onFocus={()=>setTextI('phone')}
                     placeholderTextColor = "gray"
                     placeholder="  Phone/email "
@@ -44,9 +70,8 @@ const Register=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='password'?'#F0F0F0':'white'),elevation:(texti=='password'?5:0),paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,password:text})}}
+                    value={userd.password}
                     onFocus={()=>setTextI('password')}
                     placeholderTextColor = "gray"
                     placeholder="  Password"
@@ -55,9 +80,8 @@ const Register=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='age'?'#F0F0F0':'white'),elevation:(texti=='age'?5:0),paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,age:text})}}
+                    value={userd.age}
                     onFocus={()=>setTextI('age')}
                     placeholderTextColor = "gray"
                     placeholder="  Age"
@@ -95,7 +119,7 @@ const Register=({navigation})=>{
                 />
                 <Text style={{fontSize:10,fontWeight:'500',lineHeight:15,...style.tStyle}}>I Agree with the <Text style={{color:'#FF3737'}}>Term of Service</Text> & <Text style={{color:'#FF3737'}}>Privacy Policy</Text></Text>
             </View>
-            <Button  onPress={()=>navigation.navigate('Home')} title={'Sign Up'} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
+            <Button  onPress={()=>registerfn()} title={'Sign Up'} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
             <Text style={{textAlign:'center'}}> or </Text>
             <View style={{flexDirection:'row',justifyContent:'space-around',width:'80%',alignSelf:'center'}}>
                 <View style={{flexDirection:'row',alignItems:'center'}}>

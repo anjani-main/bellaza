@@ -1,18 +1,37 @@
 
 import React,{useState,useEffect,useRef} from "react";
 import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text, useColorScheme,View,TextInput,TouchableOpacity,Image} from 'react-native';
-import MoviesWatch from '../../components/moviesWatch.js'
 import { Button, Icon } from "react-native-elements";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { color } from "react-native-reanimated";
-import { CheckBox } from 'react-native-elements'
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login=({navigation})=>{
     const [isEnterNamePressed,setIsEnterNamePressed]=useState(false);
     const [texti,setTextI]=useState();
     const [gender,setGender]=useState('male');
+    const [userd,setUserd]=useState({email_mobile:'',password:''})
 
+    const loginfn=async()=>{
+        const logRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+    
+            access_key:6808,
+            get_user:1,
+            email_mobile:userd.email_mobile,
+            password:userd.password,
+        },{
+            headers:{
+                authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+            }
+        });
+        console.log(logRes);
+        if(logRes.data.error==false){
+            await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:logRes.data.id,name:logRes.data.name,email_mobile:logRes.data.email_mobile,gender:logRes.data.gender,age:logRes.data.age}));
+
+            navigation.navigate('Home');
+        }
+
+    }
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
@@ -24,8 +43,8 @@ const Login=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='phone'?'#F0F0F0':'white'),elevation:(texti=='phone'?5:0),paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,email_mobile:text})}}
+                    value={userd.email_mobile}
                     onFocus={()=>setTextI('phone')}
                     placeholderTextColor = "gray"
                     placeholder="  Phone/email "
@@ -34,9 +53,8 @@ const Login=({navigation})=>{
                     style={{width:'80%',height:43,borderBottomWidth:1,borderRadius:8,borderColor:'gray', color: 'black',alignSelf:'center',backgroundColor:(texti=='password'?'#F0F0F0':'white'),elevation:(texti=='password'?5:0),paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    onChangeText={(text)=>{setUserd({...userd,password:text})}}
+                    value={userd.password}
                     onFocus={()=>setTextI('password')}
                     placeholderTextColor = "gray"
                     placeholder="  Password"
@@ -62,7 +80,7 @@ const Login=({navigation})=>{
                 </TouchableOpacity>
             </View>
             
-            <Button title={'Login'} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
+            <Button title={'Login'} onPress={()=>loginfn()} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
             <TouchableOpacity onPress={()=>navigation.navigate('EnterOTP')}><Text style={{fontWeight:'600',fontSize:13,lineHeight:18,fontFamily:'Poppins-Regular',alignSelf:'center',color:'#EA2424'}}>Forget password ?</Text></TouchableOpacity>
             <Text style={{textAlign:'center'}}> or </Text>
             <View style={{flexDirection:'row',justifyContent:'space-around',width:'80%',alignSelf:'center'}}>

@@ -1,7 +1,6 @@
 
 import React,{useState,useEffect,useRef} from "react";
 import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text, useColorScheme,View,TextInput} from 'react-native';
-import MoviesWatch from '../../components/moviesWatch.js'
 import { Button } from "react-native-elements";
 import OTPTextView from 'react-native-otp-textinput'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
