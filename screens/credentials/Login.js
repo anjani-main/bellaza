@@ -94,7 +94,7 @@ const Login=({navigation})=>{
             </View>
             
             <Button title={'Login'} onPress={()=>loginfn()} buttonStyle={{width:'80%',height:53,backgroundColor:'#FF3737',alignSelf:'center',borderRadius:10}} />
-            <TouchableOpacity onPress={()=>navigation.navigate('EnterOTP')}><Text style={{fontWeight:'600',fontSize:13,lineHeight:18,fontFamily:'Poppins-Regular',alignSelf:'center',color:'#EA2424'}}>Forget password ?</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('Reset')}><Text style={{fontWeight:'600',fontSize:13,lineHeight:18,fontFamily:'Poppins-Regular',alignSelf:'center',color:'#EA2424'}}>Forget password ?</Text></TouchableOpacity>
             <Text style={{textAlign:'center'}}> or </Text>
             <View style={{flexDirection:'row',justifyContent:'space-around',width:'80%',alignSelf:'center'}}>
                 <View style={{flexDirection:'row',alignItems:'center'}}>

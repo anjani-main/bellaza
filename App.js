@@ -15,13 +15,14 @@
  import { AuthContext } from './components/Context';
 //  import Start from './screens/credentialsScreen/Start';
  import Login from './screens/credentials/Login';
- import GetOTP from './screens/credentials/GetOTP';
+import ResetPassword from './screens/credentials/Reset';
  import Start from './screens/credentials/Start';
  import Register from './screens/credentials/Register';
  import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyDrawer from './screens/home/Drawer';
 import Home from './screens/home/Home';
 import EnterOTP from './screens/credentials/EnterOTP';
+import ConfirmPass from './screens/credentials/ConfirmPass';
  
  const Stack = createStackNavigator();
  const globalScreenOptions = {
@@ -68,13 +69,19 @@ import EnterOTP from './screens/credentials/EnterOTP';
                         close: config,
                       },
                     }}/> 
-                <Stack.Screen name="GetOTP" component={GetOTP}  options={{
+                <Stack.Screen name="Reset" component={ResetPassword}  options={{
                       transitionSpec: {
                         open: config,
                         close: config,
                       },
                     }}/> 
                 <Stack.Screen name="EnterOTP" component={EnterOTP}  options={{
+                      transitionSpec: {
+                        open: config,
+                        close: config,
+                      },
+                    }}/> 
+                <Stack.Screen name="CP" component={ConfirmPass}  options={{
                       transitionSpec: {
                         open: config,
                         close: config,

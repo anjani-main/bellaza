@@ -15,7 +15,8 @@ const EnterOTP=({navigation})=>{
     const [msg,setMsg]=useState('');
     const onPressEnterOTP=async()=>{
         try{
-            setIsLoading(true);
+           // setIsLoading(true);
+           navigation.navigate('CP')
             const token=await generateToken();
             console.log("Token: ",token);
             if(token!='error'){
@@ -37,7 +38,7 @@ const EnterOTP=({navigation})=>{
                     });
                     console.log(rPRes);
                     if(rPRes.data.error==false){
-                        navigation.navigate('Login');
+                       // navigation.navigate('Login');
                         
                     }
                 }
@@ -48,7 +49,7 @@ const EnterOTP=({navigation})=>{
         }
     }
     const dispatchOTPfn=async()=>{
-        setIsLoading(true);
+       // setIsLoading(true);
         const token=await generateToken();
         console.log("Token: ",token);
         if(token!='error'){
@@ -71,7 +72,7 @@ const EnterOTP=({navigation})=>{
                     setMsg(fPRes.data.message);
                     
                 }
-                setIsLoading(true);
+                setIsLoading(false);
             }
         }
     }
