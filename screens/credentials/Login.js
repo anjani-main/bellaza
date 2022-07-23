@@ -7,34 +7,47 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login=({navigation})=>{
-    const [isEnterNamePressed,setIsEnterNamePressed]=useState(false);
+    const [loading,setIsLoading]=useState(false);
     const [texti,setTextI]=useState();
     const [gender,setGender]=useState('male');
     const [userd,setUserd]=useState({email_mobile:'',password:''})
 
     const loginfn=async()=>{
-        const logRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-    
-            access_key:6808,
-            get_user:1,
-            email_mobile:userd.email_mobile,
-            password:userd.password,
-        },{
-            headers:{
-                authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+        try{
+            setIsLoading(true);
+            const token=await generateToken();
+            console.log("Token: ",token);
+            if(token!='error'){
+                const logRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+        
+                    access_key:6808,
+                    get_user:1,
+                    email_mobile:userd.email_mobile,
+                    password:userd.password,
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`,
+                        'Content-Type':'multipart/form-data',
+                    }
+                });
+                console.log(logRes.data);
+                if(logRes.data.error=='false'){
+                    await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:logRes.data.data.id,name:logRes.data.data.name,email_mobile:logRes.data.data.email_mobile,gender:logRes.data.data.gender,age:logRes.data.data.age}));
+                    setIsLoading(false);
+                    navigation.navigate('Home');
+                }
+                //setIsLoading(false);
             }
-        });
-        console.log(logRes);
-        if(logRes.data.error==false){
-            await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:logRes.data.id,name:logRes.data.name,email_mobile:logRes.data.email_mobile,gender:logRes.data.gender,age:logRes.data.age}));
-
-            navigation.navigate('Home');
+        }catch(e){
+            setIsLoading(false);
+            console.log("Error: ",e);
         }
-
+        
     }
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
+         {loading==false?null:<Loader/>}
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
         <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>
             <Text style={{fontFamily:'Poppins-Bold',color:'black',alignSelf:'center',fontWeight:'600',fontSize:20,lineHeight:30}}>Hello Again !</Text>

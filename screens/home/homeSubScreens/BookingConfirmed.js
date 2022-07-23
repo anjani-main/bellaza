@@ -33,7 +33,49 @@ const BookingConfirmed=({navigation})=>{
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false);
 
+    const slotBooking=async()=>{
+        try{
+            const token=await generateToken({name:'anjnai'});
+            console.log("Token: ",token);
+            if(token!='error'){
+                const userInfo=await AsyncStorage.getItem('userInfo');
+                if(userInfo){
+                    const {user_id}=JSON.parse(userInfo);
+                    const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+            
+                        access_key:6808,
+                        slot_booking:1,
+                        vendor_id:'1',
+                        user_id:user_id,
+                        total_price:'500',
+                        appointment_date:'date',
+                        status:'upcoming',
+                        slots:['10:45','11:00'],
+                        cat_id:['7','10','19'],
+                        products:[{product_id:'254',cat_id:'10'}],
+                        booking_for:{
+                            name:"anuj",
+                            mobile:"9118840397",
+                            age:"23"
+                        },
+                    },{
+                        headers:{
+                            authorization:token
+                        }
+                    });
+                    console.log(accRes);
+                    if(accRes.data.error==false){
+                        // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
+                        // setUser({...userd});
+                    }
+                }
+            }
+        }catch(e){
+            console.log("Error: ",e);
+        }
+    }
     useEffect(()=>{
+        slotBooking();
         navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }});
         return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined });
     },[navigation])

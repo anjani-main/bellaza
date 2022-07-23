@@ -4,52 +4,74 @@ import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text, useColorScheme,View,T
 import { Button } from "react-native-elements";
 import OTPTextView from 'react-native-otp-textinput'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import generateToken from '../../components/jwt';
 
 const EnterOTP=({navigation})=>{
     const otpInputRef = useRef(null);
+    const [loading,setIsLoading]=useState(false);
     const [val,setVal]=useState('');
     const [msg,setMsg]=useState('');
     const onPressEnterOTP=async()=>{
-        const userInfo=await AsyncStorage.getItem('userInfo');
-        if(userInfo){
-            const {email_mobile}=JSON.parse(userInfo);
-            const rPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-    
-                access_key:6808,
-                reset_password:1,
-                password:val,
-                email_mobile:email_mobile,
-                reset_token:'39o0ek2g'
-            },{
-                headers:{
-                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+        try{
+            setIsLoading(true);
+            const token=await generateToken();
+            console.log("Token: ",token);
+            if(token!='error'){
+                const userInfo=await AsyncStorage.getItem('userInfo');
+                if(userInfo){
+                    const {email_mobile}=JSON.parse(userInfo);
+                    const rPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+
+                        access_key:6808,
+                        reset_password:1,
+                        password:val,
+                        email_mobile:email_mobile,
+                        reset_token:'39o0ek2g'
+                    },{
+                        headers:{
+                            authorization:`Bearer ${token}`,
+                            'Content-Type':'multipart/form-data'
+                        }
+                    });
+                    console.log(rPRes);
+                    if(rPRes.data.error==false){
+                        navigation.navigate('Login');
+                        
+                    }
                 }
-            });
-            console.log(rPRes);
-            if(rPRes.data.error==false){
-                navigation.navigate('Login');
-                
             }
+        }catch(e){
+            setIsLoading(false);
+            console.log("Error: ",e);
         }
     }
     const dispatchOTPfn=async()=>{
-        const userInfo=await AsyncStorage.getItem('userInfo');
-        if(userInfo){
-            const {email_mobile}=JSON.parse(userInfo);
-            const fPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-    
-                access_key:6808,
-                forgot_password:1,
-                email_mobile:email_mobile
-            },{
-                headers:{
-                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+        setIsLoading(true);
+        const token=await generateToken();
+        console.log("Token: ",token);
+        if(token!='error'){
+            const userInfo=await AsyncStorage.getItem('userInfo');
+            if(userInfo){
+                const {email_mobile}=JSON.parse(userInfo);
+                const fPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+
+                    access_key:6808,
+                    forgot_password:1,
+                    email_mobile:email_mobile
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`,
+                        'Content-Type':'multipart/form-data',
+                    }
+                });
+                console.log(fPRes.data);
+                if(fPRes.data.error=='false'){
+                    setMsg(fPRes.data.message);
+                    
                 }
-            });
-            console.log(fPRes);
-            if(fPRes.data.error==false){
-                setMsg(fPRes.data.message);
-                
+                setIsLoading(true);
             }
         }
     }
@@ -59,6 +81,7 @@ const EnterOTP=({navigation})=>{
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:480}}>
+        {loading==false?null:<Loader/>}
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
           
         <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>

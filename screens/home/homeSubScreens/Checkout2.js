@@ -24,7 +24,38 @@ const Checkout2=({navigation})=>{
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false);
 
+    const getSlots=async()=>{
+        try{
+            const token=await generateToken({name:'anjnai'});
+            console.log("Token: ",token);
+            if(token!='error'){
+                const userInfo=await AsyncStorage.getItem('userInfo');
+                if(userInfo){
+                    const {email_mobile}=JSON.parse(userInfo);
+                    const slotRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+            
+                        access_key:6808,
+                        view_profile:1,
+                        email_mobile:email_mobile
+                    },{
+                        headers:{
+                            authorization:`Bearer ${token}`
+                        }
+                    });
+                    console.log(slotRes);
+                    if(slotRes.data.error==false){
+                        // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
+                        // setUser({...userd});
+                    }
+                }
+            }
+        }catch(e){
+            console.log("Error: ",e);
+        }
+    }
+
     useEffect(()=>{
+        getSlots();
         navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }});
         return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined });
     },[navigation])

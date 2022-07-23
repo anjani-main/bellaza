@@ -1,6 +1,7 @@
 import React,{useEffect,useReducer,useState} from 'react';
 import {View,Text, StyleSheet, TouchableOpacity,Image,ActivityIndicator, TextInput} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
+import DocumentPicker, { types } from 'react-native-document-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -28,7 +29,7 @@ const Account=({navigation})=>{
                 email_mobile:email_mobile
             },{
                 headers:{
-                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+                    authorization:`Bearer ${token}`
                 }
             });
             console.log(accRes);
@@ -56,15 +57,39 @@ const Account=({navigation})=>{
                 profile:user.profile
             },{
                 headers:{
-                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTgxNDcyNzcsImlzcyI6ImF1cmEiLCJleHAiOjE2NTgyNTUyNzcsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.lA4aF5jJ_Itx0RJZ546n_tzoBcnlquUf289CyOjtSLE`
+                    authorization:`Bearer ${token}`
                 }
             });
-            console.log(accURes);
+            console.log(accURes.data);
             if(accURes.data.error==false){
                 let userd={name:accURes.data.data.name,email_mobile:accURes.data.data.email_mobile,gender:accURes.data.data.gender,age:accURes.data.data.age,profile:accURes.data.data.profile,address:accURes.data.data.address};
                 setUser({...userd});
             }
         }
+    }
+    const handledocument=async()=>{
+
+        try{
+            const results = await DocumentPicker.pickSingle({
+              type: [DocumentPicker.types.images],
+            });
+            console.log(results);
+            setUser({...user,profile:results.uri});
+                    
+        }catch(err){
+            
+            if (DocumentPicker.isCancel(err)) {
+                //If user canceled the document selection
+                alert("Didn't select any file.");
+            } else {
+                //For Unknown Error
+                alert('Unknown Error: ' + JSON.stringify(err));
+                throw err;
+            }
+            console.log("Error: ",err);
+        }
+                
+              
     }
       useEffect(() => {
         getAccountInfo();
@@ -99,7 +124,10 @@ const Account=({navigation})=>{
                         </View>
                     </View>
                 ):(<View style={{alignSelf:'center',width:120,height:120,borderColor:'black',borderWidth:1,borderRadius:100,alignItems:'center',justifyContent:'center',marginBottom:-20}}>
-                       <Image source={{uri:user.profile}} style={{width:100,height:100,borderRadius:100}}/>
+                    <TouchableOpacity onPress={()=>handledocument()}>
+                    <Image source={{uri:user.profile}} style={{width:100,height:100,borderRadius:100}}/>
+                    </TouchableOpacity>
+                     
                 </View>)}
                 </>
                 <View style={{borderBottomColor:'#D9D9D9',borderBottomWidth:(edit==false?1:0),height:80,justifyContent:'space-evenly',marginVertical:5}}>

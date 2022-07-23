@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {View,Text, StyleSheet, TouchableOpacity,ScrollView,TextInput,Modal,TouchableWithoutFeedback} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Button, Icon } from 'react-native-elements';
-import Header from '../../../components/Header';
 const Checkout=({navigation})=>{
 
 

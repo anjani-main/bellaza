@@ -5,43 +5,57 @@ import { Button, Icon } from "react-native-elements";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { CheckBox } from 'react-native-elements';
 import axios from "axios";
+import Loader from "../../components/Loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import generateToken from '../../components/jwt';
 const Register=({navigation})=>{
-    const [isEnterNamePressed,setIsEnterNamePressed]=useState(false);
+    const [loading,setIsLoading]=useState(false);
     const [userd,setUserd]=useState({name:'',email_mobile:'',password:'',gender:'',age:''})
     const [texti,setTextI]=useState();
     const [terms,setTerms]=useState(false);
     const [gender,setGender]=useState('male');
 
     const registerfn=async()=>{
-        const token=await generateToken({name:'anjnai'});
-        console.log("Token: ",token);
-        if(token!='error'){
-            const regRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-                user_signup:1,
-                access_key:6808,
-                age:userd.age,
-                name:userd.name,
-                email_mobile:userd.email_mobile,
-                password:userd.password,
-                gender:gender
-            },{
-                headers:{
-                    authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTY1OTQzMDEsImlzcyI6ImF1cmEiLCJleHAiOjE2NTY3MDIzMDEsInN1YiI6ImF1cmEgaXQgc29sdXRpb25zIn0.2z1TqaoC8B7AAeLRI3E4V8twuw96g1guIJuMKkfC89Y`
+        try{
+            setIsLoading(true);
+            const token=await generateToken();
+            console.log("Token: ",token);
+            if(token!='error'){
+                const regRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    user_signup:1,
+                    access_key:6808,
+                    age:userd.age,
+                    name:userd.name,
+                    email_mobile:userd.email_mobile,
+                    password:userd.password,
+                    gender:gender
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`,
+                        'Content-Type':'multipart/form-data',
+                    }
+                });
+               // console.log(regRes);
+                console.log(regRes.data,typeof(regRes.data));
+                console.log(regRes.data.error);
+                if(regRes.data.error=='false'){
+                    console.log('hi');
+                    await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:regRes.data.data.user_id,name:regRes.data.data.name,email_mobile:regRes.data.data.email_mobile,gender:regRes.data.data.gender,age:regRes.data.data.age}));
+                    setIsLoading(false);
+                    navigation.navigate('Home');
                 }
-            });
-            console.log(regRes);
-            if(regRes.data.error==false){
-                await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:regRes.data.user_id,name:regRes.data.name,email_mobile:regRes.data.email_mobile,gender:regRes.data.gender,age:regRes.data.age}));
-    
-                navigation.navigate('Home');
+                setIsLoading(false);
             }
+        }catch(e){
+            setIsLoading(false);
+            console.log("Error:",e)
         }
+        
         
     }
     return (
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
+            {loading==false?null:<Loader/>}
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly'}}>
         <Image source={require('../../statics/Bellazza.png')} style={{alignSelf:'center',marginTop:10}}/>
             <Text style={{fontFamily:'Poppins-Bold',color:'black',alignSelf:'center',fontWeight:'600',fontSize:20,lineHeight:30}}>Join Us</Text>

@@ -6,6 +6,36 @@ import Header from "../../components/Header";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const RegisterPartner=({navigation})=>{
+    const [partnerd,setPartnerd]=useState({name:'',email:'',mobile:'',bus_name:'',bus_add:''})
+    const resgiterPartnerfn=async()=>{
+        try{
+            const token=await generateToken({name:'anjnai'});
+            console.log("Token: ",token);
+            if(token!='error'){
+                const regPartRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    vendor_request:1,
+                    access_key:6808,
+                    vendor_name:partnerd.name,
+                    vendor_email:partnerd.email,
+                    vendor_mobile:partnerd.mobile,
+                    business_name:partnerd.bus_name,
+                    business_address:partnerd.bus_add
+                },{
+                    headers:{
+                        authorization:token
+                    }
+                });
+                console.log(regPartRes);
+                if(regPartRes.data.error==false){
+                    navigation.navigate('RegisterPartnerConfirmed')
+                }
+            }
+            
+        }catch(e){
+            console.log("Error: ",e)
+        }
+       
+    }
     return(
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
             <Header title="Become a partner"/>
@@ -19,9 +49,8 @@ const RegisterPartner=({navigation})=>{
                     style={{width:'100%',height:43,borderWidth:1,borderRadius:8,borderColor:'gray', color: 'black',backgroundColor:'white',paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    value={partnerd.name}
+                    onChangeText={(text)=>setPartnerd({...partnerd,name:text})}
                     placeholderTextColor = "gray"
                     placeholder=" Enter your name"
             ></TextInput>
@@ -32,9 +61,8 @@ const RegisterPartner=({navigation})=>{
                     style={{width:'100%',height:43,borderWidth:1,borderRadius:8,borderColor:'gray', color: 'black',backgroundColor:'white',paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    value={partnerd.mobile}
+                    onChangeText={(text)=>setPartnerd({...partnerd,mobile:text})}
                     placeholderTextColor = "gray"
                     placeholder=" Enter your number"
             ></TextInput>
@@ -45,9 +73,8 @@ const RegisterPartner=({navigation})=>{
                     style={{width:'100%',height:43,borderWidth:1,borderRadius:8,borderColor:'gray', color: 'black',backgroundColor:'white',paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    value={partnerd.email}
+                    onChangeText={(text)=>setPartnerd({...partnerd,email:text})}
                     placeholderTextColor = "gray"
                     placeholder=" Enter Email name"
             ></TextInput>
@@ -58,9 +85,8 @@ const RegisterPartner=({navigation})=>{
                     style={{width:'100%',height:43,borderWidth:1,borderRadius:8,borderColor:'gray', color: 'black',backgroundColor:'white',paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    value={partnerd.bus_name}
+                    onChangeText={(text)=>setPartnerd({...partnerd,bus_name:text})}
                     placeholderTextColor = "gray"
                     placeholder=" Enter business name"
             ></TextInput>
@@ -71,15 +97,14 @@ const RegisterPartner=({navigation})=>{
                     style={{width:'100%',height:43,borderWidth:1,borderRadius:8,borderColor:'gray', color: 'black',backgroundColor:'white',paddingLeft:15}}
                     multiline={true}
                     editable={true}
-                    
-                    //onChangeText={(text)=>{setEmail(text)}}
-                    //value={email}
+                    value={partnerd.bus_add}
+                    onChangeText={(text)=>setPartnerd({...partnerd,bus_add:text})}
                     placeholderTextColor = "gray"
                     placeholder=" Enter business address"
             ></TextInput>
             </View>
            
-            <Button onPress={()=>navigation.navigate('RegisterPartnerConfirmed')}   title={'Apply now'} buttonStyle={{width:'100%',height:53,backgroundColor:'#EA2424',borderRadius:10,marginVertical:30}} />
+            <Button onPress={()=> resgiterPartnerfn()}   title={'Apply now'} buttonStyle={{width:'100%',height:53,backgroundColor:'#EA2424',borderRadius:10,marginVertical:30}} />
            
 
         </View>

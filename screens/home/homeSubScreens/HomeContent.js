@@ -5,6 +5,8 @@ import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 import Voice from '@react-native-community/voice';
 import Header from '../../../components/Header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const oneS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
@@ -226,6 +228,40 @@ const HomeContent=({navigation})=>{
         setCategory(service);
         navigation.navigate(service)
     }
+    const getVendorServices=async()=>{
+        try{
+            const token=await generateToken({name:'anjnai'});
+            console.log("Token: ",token);
+            if(token!='error'){
+                const userInfo=await AsyncStorage.getItem('userInfo');
+                if(userInfo){
+                    const {email_mobile}=JSON.parse(userInfo);
+                    const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+            
+                        access_key:6808,
+                        get_vendor_services:1,
+                        email_mobile:email_mobile
+                    },{
+                        headers:{
+                            authorization:`Bearer ${token}`,
+                            'Content-Type':'multipart/form-data',
+                        }
+                    });
+                    console.log(accRes.data);
+                    if(accRes.data.error==false){
+                        // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
+                        // setUser({...userd});
+                    }
+                }
+            }
+        }catch(e){
+            console.log("Error: ",e);
+        }
+        
+    }
+    useEffect(()=>{
+        getVendorServices();
+    },[])
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
             <Header title="Home"/>

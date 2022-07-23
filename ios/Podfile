@@ -27,6 +27,8 @@ target 'Bellazza' do
 
   pod 'react-native-voice', :path => '../node_modules/@react-native-community/voice'
 
+  pod 'react-native-pure-jwt', :path => '../node_modules/react-native-pure-jwt'
+
   target 'BellazzaTests' do
     inherit! :complete
     # Pods for testing
