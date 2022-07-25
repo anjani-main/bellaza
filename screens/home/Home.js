@@ -72,7 +72,7 @@ const Home=()=>{
                     },
                     tabBarIcon: ({ color }) => (
                         <View style={{backgroundColor:'red',width:60,height:60,borderRadius:100,alignItems:'center',justifyContent:'center',position:'relative',top:-10}}>
-                            <MaterialCommunityIcons name="calendar" color={`white`} size={30} />
+                          <Image source={require('../../statics/calendar.png')}/>
                         </View>
                         
                     ),

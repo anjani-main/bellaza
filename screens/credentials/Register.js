@@ -17,35 +17,37 @@ const Register=({navigation})=>{
 
     const registerfn=async()=>{
         try{
-            setIsLoading(true);
-            const token=await generateToken();
-            console.log("Token: ",token);
-            if(token!='error'){
-                const regRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-                    user_signup:1,
-                    access_key:6808,
-                    age:userd.age,
-                    name:userd.name,
-                    email_mobile:userd.email_mobile,
-                    password:userd.password,
-                    gender:gender
-                },{
-                    headers:{
-                        authorization:`Bearer ${token}`,
-                        'Content-Type':'multipart/form-data',
-                    }
-                });
-               // console.log(regRes);
-                console.log(regRes.data,typeof(regRes.data));
-                console.log(regRes.data.error);
-                if(regRes.data.error=='false'){
-                    console.log('hi');
-                    await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:regRes.data.data.user_id,name:regRes.data.data.name,email_mobile:regRes.data.data.email_mobile,gender:regRes.data.data.gender,age:regRes.data.data.age}));
-                    setIsLoading(false);
-                    navigation.navigate('Home');
-                }
-                setIsLoading(false);
-            }
+            // setIsLoading(true);
+            // const token=await generateToken();
+            // console.log("Token: ",token);
+            // if(token!='error'){
+            //     const regRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+            //         user_signup:1,
+            //         access_key:6808,
+            //         age:userd.age,
+            //         name:userd.name,
+            //         email_mobile:userd.email_mobile,
+            //         password:userd.password,
+            //         gender:gender
+            //     },{
+            //         headers:{
+            //             authorization:`Bearer ${token}`,
+            //             'Content-Type':'multipart/form-data',
+            //         }
+            //     });
+            //    // console.log(regRes);
+            //     console.log(regRes.data,typeof(regRes.data));
+            //     console.log(regRes.data.error);
+            //     if(regRes.data.error=='false'){
+            //         console.log('hi');
+            //         await AsyncStorage.setItem('userInfo',JSON.stringify({user_id:regRes.data.data.user_id,name:regRes.data.data.name,email_mobile:regRes.data.data.email_mobile,gender:regRes.data.data.gender,age:regRes.data.data.age}));
+            //         setIsLoading(false);
+            //         navigation.navigate('Home');
+            //     }
+            //     setIsLoading(false);
+                
+            // }
+            navigation.navigate('Home');
         }catch(e){
             setIsLoading(false);
             console.log("Error:",e)

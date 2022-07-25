@@ -47,7 +47,7 @@ const CardScroll=({source,nav,val,key})=>{
    
     
     return(
-        <TouchableOpacity >
+        <TouchableOpacity onPress={()=>nav.navigate('Haircut')}>
             <Image style={{marginHorizontal:20,width:200,height:130,borderRadius:10}} source={source}/>
             <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>Loreal Salon & Spa</Text>
             <View style={{flexDirection:'row',justifyContent:'space-evenly',width:200,justifyContent:'center',alignItems:'center'}}>
@@ -226,7 +226,7 @@ const HomeContent=({navigation})=>{
     const [category,setCategory]=useState('');
     const changeCateg=(service)=>{
         setCategory(service);
-        navigation.navigate(service)
+       
     }
     const getVendorServices=async()=>{
         try{
@@ -299,6 +299,7 @@ const HomeContent=({navigation})=>{
                 
             </ScrollView>
            </View>
+           
           
            <View style={{flexDirection:'row',justifyContent:'space-between',width:'90%',alignSelf:'center'}}>
             <Text style={{fontFamily:'Poppins-Regular',color:'white'}}>Curated for you</Text>
@@ -307,8 +308,41 @@ const HomeContent=({navigation})=>{
                 color='white'
                 />
            </View>
-           <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Best  Rated Salon</Text>
-           <View style={{height:194,marginBottom:20,}}>
+           <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Best  Rated Salon</Text>
+           <View style={{height:200,marginBottom:20,}}>
+            <ScrollView horizontal={true} >
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={5} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={2} nav={navigation} source={require('../../../statics/movImg.png')}/>
+              
+            </ScrollView>
+           </View>
+           <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Salonist</Text>
+           <View style={{height:200,marginBottom:20,}}>
+            <ScrollView horizontal={true} >
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={5} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={2} nav={navigation} source={require('../../../statics/movImg.png')}/>
+              
+            </ScrollView>
+           </View>
+           <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Hair cutting Salon</Text>
+           <View style={{height:200,marginBottom:20,}}>
+            <ScrollView horizontal={true} >
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={5} nav={navigation} source={require('../../../statics/movImg.png')}/>
+                <CardScroll val={2} nav={navigation} source={require('../../../statics/movImg.png')}/>
+              
+            </ScrollView>
+           </View>
+           <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Massage Salon</Text>
+           <View style={{height:200,marginBottom:20,}}>
             <ScrollView horizontal={true} >
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
