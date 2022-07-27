@@ -1,4 +1,5 @@
 import React,{useEffect,useReducer,useState} from 'react';
+import Loader from '../../components/Loader';
 import {View,Text, StyleSheet, TouchableOpacity,Image,ActivityIndicator, TextInput} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import DocumentPicker, { types } from 'react-native-document-picker';
@@ -6,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import generateToken from '../../components/jwt';
 // import Toast from 'react-native-toast-message';
 
 const data = [
@@ -15,69 +16,106 @@ const data = [
 
   ];
 const Account=({navigation})=>{
+    
     const [loading,setIsLoading] = useState(true);
     const [user,setUser]=useState({name:'',email_mobile:'',gender:'',age:'',profile:'',address:''})
     const [edit,setEdit] = useState(false);
     const getAccountInfo=async()=>{
-        const userInfo=await AsyncStorage.getItem('userInfo');
-        if(userInfo){
-            const {email_mobile}=JSON.parse(userInfo);
-            const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-    
-                access_key:6808,
-                view_profile:1,
-                email_mobile:email_mobile
-            },{
-                headers:{
-                    authorization:`Bearer ${token}`
+        const token=await generateToken();
+        console.log("Token: ",token);
+        if(token!='error'){
+            const userInfo=await AsyncStorage.getItem('userInfo');
+            if(userInfo){
+                const {email_mobile}=JSON.parse(userInfo);
+                const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+
+                    access_key:6808,
+                    view_profile:1,
+                    email_mobile:email_mobile
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`
+                    }
+                });
+                console.log(accRes);
+                if(accRes.data.error==false){
+                    setUser({name:accRes.data.name,email_mobile:accRes.data.name,gender:accRes.data.name,age:accRes.data.name,profile:accRes.data.name,address:accRes.data.name});
                 }
-            });
-            console.log(accRes);
-            if(accRes.data.error==false){
-                // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
-                // setUser({...userd});
             }
         }
-       
 
     }
     const updateProfile=async()=>{
         setEdit(false);
-        const userInfo=await AsyncStorage.getItem('userInfo');
-        if(userInfo){
-            const {email_mobile}=JSON.parse(userInfo);
-            const accURes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
-                edit_profile:1,
-                access_key:6808,
-                age:user.age,
-                name:user.name,
-                email_mobile:email_mobile,
-                gender:user.gender,
-                address:user.address,
-                profile:user.profile
-            },{
-                headers:{
-                    authorization:`Bearer ${token}`
+        const token=await generateToken();
+        console.log("Token: ",token);
+        if(token!='error'){
+            const userInfo=await AsyncStorage.getItem('userInfo');
+            if(userInfo){
+                const {user_id}=JSON.parse(userInfo);
+                const accURes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    edit_user_data:1,
+                    access_key:6808,
+                    user_id:user_id,
+                    age:user.age,
+                    name:user.name,
+                    gender:user.gender,
+                    address:user.address,
+                    
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`
+                    }
+                });
+                console.log(accURes.data);
+                if(accURes.data.error==false){
+                    let userd={name:accURes.data.data.name,email_mobile:accURes.data.data.email_mobile,gender:accURes.data.data.gender,age:accURes.data.data.age,profile:accURes.data.data.profile,address:accURes.data.data.address};
+                    setUser({...userd});
                 }
-            });
-            console.log(accURes.data);
-            if(accURes.data.error==false){
-                let userd={name:accURes.data.data.name,email_mobile:accURes.data.data.email_mobile,gender:accURes.data.data.gender,age:accURes.data.data.age,profile:accURes.data.data.profile,address:accURes.data.data.address};
-                setUser({...userd});
             }
         }
     }
     const handledocument=async()=>{
 
         try{
+            setIsLoading(true);
             const results = await DocumentPicker.pickSingle({
               type: [DocumentPicker.types.images],
             });
             console.log(results);
-            setUser({...user,profile:results.uri});
+            const token=await generateToken();
+            console.log("Token: ",token);
+            if(token!='error'){
+                var formdata = new FormData();
+                const userInfo=await AsyncStorage.getItem('userInfo');
+                if(userInfo){
+                    const {user_id}=JSON.parse(userInfo);
+                    formdata.append("user_id",user_id);
+                    formdata.append("image", results);
+                    formdata.append('upload_profile_image',1);
+                    var myHeaders = new Headers();
+                    myHeaders.append("authorization", token);
+                    var requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: formdata,
+                        redirect: 'follow'
+                    };
+                    console.log("REQUEST PTION ------",requestOptions);
+                    fetch("https://admin.bellazza.in/api/api-v2.php", requestOptions)
+                    .then(response => response.json())
+                    .then(result =>{
+                        console.log("Upload image status",result);
+                        setUser({...user,profile:result.file_path});
+                      })
+
+                }
+            }
+            setIsLoading(false);
+            //setUser({...user,profile:results.uri});
                     
         }catch(err){
-            
+            setIsLoading(false)
             if (DocumentPicker.isCancel(err)) {
                 //If user canceled the document selection
                 alert("Didn't select any file.");
@@ -97,6 +135,7 @@ const Account=({navigation})=>{
       
     return(
         <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:'white',height:720}}>
+             {loading==false?null:<Loader/>}
         <View style={{backgroundColor:'white',paddingHorizontal:25}}>
             <View style={headerStyles.container}>
             <TouchableOpacity onPress={()=>navigation.openDrawer()}>

@@ -4,46 +4,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import { CheckBox } from 'react-native-elements'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Slider from '@react-native-community/slider';
-const oneS=(
-    <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-    </View>
-)
-const twoS=(
-    <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-    </View>
-)
-const threeS=(
-    <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-    </View>
-)
-const fourS=(
-    <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-    </View>
-)
-const fiveS=(
-    <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-        <Image source={require('../../../statics/star.png')} style={{width:30,height:30,marginRight:15,marginBottom:10,marginTop:10}} />
-    </View>
-)
+
 const Filters=({navigation,route})=>{
     const [gender,setgender]=useState({men:true,women:false,unisex:false});
     const [short,setshort]=useState({mp:true,clh:false,chl:false,nb:false});
     const [dist,setdist]=useState(0);
     const [price,setprice]=useState(0);
+    const [rating,setRating]=useState(route.params.ns);
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1,paddingLeft:25}}>
            <Text style={{color:'black',alignSelf:'center',fontFamily:'Poppins-Regular',fontSize:20,fontWeight:'600',lineHeight:25,paddingTop:15}}>Filter</Text>
@@ -154,7 +121,24 @@ const Filters=({navigation,route})=>{
             />
             </View>
             <Text style={{color:'black',alignSelf:'flex-start',fontFamily:'Poppins-Regular',fontSize:15,fontWeight:'600',lineHeight:22}}>Rating</Text>
-            {route.params.ns==5?(fiveS):((route.params.ns==4)?(fourS):((route.params.ns==3)?(threeS):((route.params.ns==2)?(twoS):(oneS))))}
+            
+            <View style={{flexDirection:'row'}}>
+                <TouchableOpacity onPress={()=>setRating(1)} >
+                <Image source={(rating>0?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setRating(2)} >
+                <Image source={(rating>1?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setRating(3)} >
+                <Image source={(rating>2?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setRating(4)} >
+                <Image source={(rating>3?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setRating(5)} >
+                <Image source={(rating>4?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                </TouchableOpacity>
+                </View>
            </View>
            <View style={{alignSelf:'flex-start', width:'90%',marginVertical:20}}>
             <TouchableOpacity onPress={()=>applyFilter()} style={{width:90,alignSelf:'flex-end'}}>

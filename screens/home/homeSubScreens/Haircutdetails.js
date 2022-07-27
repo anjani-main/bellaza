@@ -112,12 +112,96 @@ const ReviewCard=({name,review,ns})=>{
 )
 }
 const About=()=>{
+  const [showModal,setShowModal]=useState(false);
+  const [rating,setRating]=useState(1);
+  const [ShowModal2,setShowModal2]=useState(false)
+  const clickadd=async()=>{
+    setShowModal(false);
+    setShowModal2(true)
+  }
+
   return(
     <View>
+        <Modal 
+        animationType="fade"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={() => {
+          setShowModal(false)
+        }}
+        >
+        <TouchableOpacity 
+                style={{height:'100%',backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                activeOpacity={1} 
+                onPressOut={() => {setShowModal(false)}}
+            >
+                <TouchableWithoutFeedback>
+                <View style={{backgroundColor:'white',position:'absolute',top:'25%',borderRadius:15,justifyContent:'space-evenly',width:'80%',alignSelf:'center',padding:30,elevation:600}}>
+                            <Text style={{fontFamily:'Poppins-Medium',fontSize:18,fontWeight:'600',lineHeight:27,color:'#FF3737'}}>Add review </Text>
+                            <View style={{marginTop:20}}>
+                                <Text style={{fontFamily:'Poppins-Regular',fontWeight:'500',color:'black',lineHeight:15}}>Add rating</Text>
+                                <View style={{flexDirection:'row'}}>
+                                  <TouchableOpacity onPress={()=>setRating(1)} >
+                                  <Image source={(rating>0?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  </TouchableOpacity>
+                                  <TouchableOpacity onPress={()=>setRating(2)} >
+                                  <Image source={(rating>1?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  </TouchableOpacity>
+                                  <TouchableOpacity onPress={()=>setRating(3)} >
+                                  <Image source={(rating>2?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  </TouchableOpacity>
+                                  <TouchableOpacity onPress={()=>setRating(4)} >
+                                  <Image source={(rating>3?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  </TouchableOpacity>
+                                  <TouchableOpacity onPress={()=>setRating(5)} >
+                                  <Image source={(rating>4?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  </TouchableOpacity>
+                                </View>
+                                <TextInput 
+                                    style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
+                                    editable={true}
+                                    value={bse.age}
+                                    onChangeText={(text)=>{setBse({...bse,age:text})}}
+                                    placeholder="Age"
+                                    ></TextInput>
+                            <Button onPress={()=>{clickadd()}} title={'Add'} buttonStyle={{backgroundColor:'#FF3737',width:93,height:40,borderRadius:10,alignSelf:'center',marginTop:30}} titleStyle={{color:'white'}}/>
+                            </View>
+                            
+
+                        </View>
+                </TouchableWithoutFeedback>
+            </TouchableOpacity>  
+        
+        </Modal>
+        <Modal 
+                animationType="fade"
+                transparent={true}
+                visible={ShowModal2}
+                onRequestClose={() => {
+                   setShowModal2(false)
+                }}
+                >
+                <TouchableOpacity 
+                        style={{height:'100%',backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                        activeOpacity={1} 
+                        onPressOut={() => {setShowModal2(false)}}
+                    >
+                        <TouchableWithoutFeedback>
+                        <View style={{backgroundColor:'white',position:'absolute',top:'25%',borderRadius:15,justifyContent:'space-evenly',width:'80%',alignSelf:'center',padding:30}}>
+                            <Image style={{alignSelf:'center',width:65,height:65}} source={require('../../statics/tick.png')}/>
+                            <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,alignSelf:'center',width:'80%',textAlign:'center',color:'#FF3737',marginTop:15}}>Rating submitted</Text>          
+                        </View>
+                        </TouchableWithoutFeedback>
+                    </TouchableOpacity>  
+                
+          </Modal>
     <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis turpis urna, interdum ut varius eget, ornare sit amet dolor. Quisque dictum aliquet nisi, et blandit leo facilisis eget. Suspendisse vitae mi rhoncus, aliquet dolor et, facilisis turpis. Curabitur ac placerat tellus. Cras at scelerisque est. </Text>
     <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:15,borderBottomColor:'#DEDEDE',borderBottomWidth:1,paddingBottom:15}}>
       <Text style={{fontFamily:'Poppins-Medium',fontSize:17,fontWeight:'600',color:'black',lineHeight:25.5}}>Review & Rating</Text>
+      <TouchableOpacity onPress={()=>setShowModal(true)}>
       <Text style={{fontFamily:'Poppins-Medium',fontSize:12,fontWeight:'500',color:'#FF3737',lineHeight:18}}>Add Review</Text>
+      </TouchableOpacity>
+      
     </View>
     <View style={{marginBottom:20}}>
       <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={4}/>

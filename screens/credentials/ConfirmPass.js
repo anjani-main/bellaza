@@ -4,6 +4,7 @@ import {Modal,StyleSheet,Text,TouchableWithoutFeedback,View,TextInput,TouchableO
 import { Button, Icon } from "react-native-elements";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
+import Loader from '../../components/Loader';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ConfirmPass=({navigation})=>{

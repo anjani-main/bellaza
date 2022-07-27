@@ -6,6 +6,7 @@ import OTPTextView from 'react-native-otp-textinput'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import Loader from '../../components/Loader';
 import generateToken from '../../components/jwt';
 
 const EnterOTP=({navigation,route})=>{
