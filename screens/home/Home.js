@@ -106,9 +106,6 @@ const Home=()=>{
                     ),
                 }}
             />
-          
-
-
         </Tab.Navigator>
     )
 }

@@ -27,7 +27,7 @@ const FavouriteContent=({navigation})=>{
     const [categ2,setCateg2]=useState('Popular')
     return(
         <ScrollView style={{backgroundColor:'black',height:500,flex:1}}>
-           <Header />
+           <Header nav={navigation} />
            <View style={{flexDirection:'row',justifyContent:'space-evenly',marginTop:20}}>
             <Text onPress={()=>setCategory('All')} style={{color:(category=='All'?'#A900BD':'white'),fontFamily:'Poppins-Regular'}}>All</Text>
             <Text onPress={()=>setCategory('Movies')} style={{color:(category=='Movies'?'#A900BD':'white'),fontFamily:'Poppins-Regular'}}>Movies</Text>

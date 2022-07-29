@@ -35,7 +35,7 @@ const Bookings=({navigation})=>{
     },[])
     return(
         <ScrollView style={{backgroundColor:'white',flex:1,paddingTop:0}}>
-            <Header title={'My Bookings'}/>
+            <Header nav={navigation} title={'My Bookings'}/>
             <View style={{marginBottom:100,marginTop:20}}>
             <OrderCardClickable  navigation={navigation} orderId={123123143} name={'Loreal Salon & Spa'} date={'03/07/2022'} time={'15:23 '} status={'upcoming'}/>
             <OrderCardClickable  navigation={navigation} orderId={123123143} name={'Loreal Salon & Spa'} date={'03/07/2022'} time={'15:23 '} status={'completed'}/>

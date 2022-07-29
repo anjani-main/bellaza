@@ -15,7 +15,7 @@ const TermsOfUse=({navigation})=>{
     return(
       
         <ScrollView style={{backgroundColor:'white',flex:1}}>
-            <Header title="Term Of Use"/>
+            <Header nav={navigation} title="Term Of Use"/>
             <View style={{paddingHorizontal:25,marginTop:10}}>
               
             <Text style={{color:'black',fontFamily:'Poppins-Medium',fontSize:14,marginBottom:-3}}>1. Introduction</Text>

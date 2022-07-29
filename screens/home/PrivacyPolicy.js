@@ -24,7 +24,7 @@ const PrivacyPolicy=({navigation})=>{
                 </View>
                 <Text >'                 '</Text>
             </View> */}
-            <Header title="Privacy Policy"/>
+            <Header nav={navigation} title="Privacy Policy"/>
             <View style={{paddingHorizontal:25,marginTop:10,marginBottom:50}}>
       
             <Text style={{color:'black',fontFamily:'Poppins-Medium',fontSize:14,marginBottom:-8,marginTop:5}}>1. Introduction</Text>

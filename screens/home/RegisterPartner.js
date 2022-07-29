@@ -12,7 +12,7 @@ const RegisterPartner=({navigation})=>{
             const token=await generateToken({name:'anjnai'});
             console.log("Token: ",token);
             if(token!='error'){
-                const regPartRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                const regPartRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
                     vendor_request:1,
                     access_key:6808,
                     vendor_name:partnerd.name,
@@ -38,7 +38,7 @@ const RegisterPartner=({navigation})=>{
     }
     return(
         <KeyboardAwareScrollView contentContainerStyle={{height:680}}>
-            <Header title="Become a partner"/>
+            <Header nav={navigation} title="Become a partner"/>
         <View style={{backgroundColor:'white',flex:1,justifyContent:'space-evenly',paddingLeft:25,paddingRight:25}}>
 
 

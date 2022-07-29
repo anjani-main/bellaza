@@ -1,10 +1,12 @@
-import React,{useState} from 'react';
-import {View,Text, StyleSheet,ImageBackground, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
+import React,{useEffect, useState} from 'react';
+import {View,Text,Modal, TouchableWithoutFeedback,StyleSheet,ImageBackground, TouchableOpacity,ScrollView,Image,TextInput} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import Accordion from '../homeSubScreens/Accordion';
 import Swiper from 'react-native-swiper';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const oneS=(
   <View style={{flexDirection:'row'}}>
@@ -113,12 +115,82 @@ const ReviewCard=({name,review,ns})=>{
 }
 const About=()=>{
   const [showModal,setShowModal]=useState(false);
-  const [rating,setRating]=useState(1);
-  const [ShowModal2,setShowModal2]=useState(false)
+  const [rating,setRating]=useState({desc:'',rating:1});
+  const [ShowModal2,setShowModal2]=useState(false);
+  const [reviews,setReviews]=useState([]);
   const clickadd=async()=>{
-    setShowModal(false);
-    setShowModal2(true)
+    
+    try{
+      const token=await generateToken({name:'anjnai'});
+      console.log("Token: ",token);
+      if(token!='error'){
+          const userInfo=await AsyncStorage.getItem('userInfo');
+          if(userInfo){
+              const {user_id,name}=JSON.parse(userInfo);
+              console.log("hi",user_id,name,rating)
+              const addRevRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+      
+                  access_key:6808,
+                  add_rating:1,
+                  user_id:user_id,
+                  username:name,                 
+                  vendor_id:'119',
+                  description:rating.desc,
+                  no_of_rating :rating.rating,
+              },{
+                  headers:{
+                      authorization:`Bearer ${token}`,
+                      'Content-Type':'multipart/form-data',
+                  }
+              });
+              console.log(addRevRes.data);
+              if(addRevRes.data.error=='false'){
+                setShowModal(false);
+                setShowModal2(true)
+                  // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
+                  // setUser({...userd});
+              }
+          }
+          console.log('hi2')
+          
+      }
+  }catch(e){
+      console.log("Error: ",e);
   }
+   
+  }
+  const getReviews=async()=>{
+    try{
+      const token=await generateToken();
+      console.log("Token: ",token);
+      if(token!='error'){
+              const getRevRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+      
+                  access_key:6808,
+                  get_rating:1,
+                  vendor_id:'119'
+              },{
+                  headers:{
+                      authorization:`Bearer ${token}`,
+                      'Content-Type':'multipart/form-data',
+                  }
+              });
+              console.log(getRevRes.data);
+              if(getRevRes.data.error=='false'){
+               // console.log("inside hi");
+                setReviews([...getRevRes.data.data]);
+              }
+            
+              
+          
+      }
+  }catch(e){
+      console.log("Error: ",e);
+  }
+  }
+  useEffect(()=>{
+    getReviews()
+  },[])
 
   return(
     <View>
@@ -141,28 +213,28 @@ const About=()=>{
                             <View style={{marginTop:20}}>
                                 <Text style={{fontFamily:'Poppins-Regular',fontWeight:'500',color:'black',lineHeight:15}}>Add rating</Text>
                                 <View style={{flexDirection:'row'}}>
-                                  <TouchableOpacity onPress={()=>setRating(1)} >
-                                  <Image source={(rating>0?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  <TouchableOpacity onPress={()=>setRating({...rating,rating:1})} >
+                                  <Image source={(rating.rating>0?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
                                   </TouchableOpacity>
-                                  <TouchableOpacity onPress={()=>setRating(2)} >
-                                  <Image source={(rating>1?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  <TouchableOpacity onPress={()=>setRating({...rating,rating:2})} >
+                                  <Image source={(rating.rating>1?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
                                   </TouchableOpacity>
-                                  <TouchableOpacity onPress={()=>setRating(3)} >
-                                  <Image source={(rating>2?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  <TouchableOpacity onPress={()=>setRating({...rating,rating:3})} >
+                                  <Image source={(rating.rating>2?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
                                   </TouchableOpacity>
-                                  <TouchableOpacity onPress={()=>setRating(4)} >
-                                  <Image source={(rating>3?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  <TouchableOpacity onPress={()=>setRating({...rating,rating:4})} >
+                                  <Image source={(rating.rating>3?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
                                   </TouchableOpacity>
-                                  <TouchableOpacity onPress={()=>setRating(5)} >
-                                  <Image source={(rating>4?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
+                                  <TouchableOpacity onPress={()=>setRating({...rating,rating:5})} >
+                                  <Image source={(rating.rating>4?(require('../../../statics/star.png')):(require('../../../statics/starw.png')))} style={{marginRight:10}}/> 
                                   </TouchableOpacity>
                                 </View>
                                 <TextInput 
                                     style={{borderBottomColor:'#D9D9D9',borderBottomWidth:1,color:'black'}}
                                     editable={true}
-                                    value={bse.age}
-                                    onChangeText={(text)=>{setBse({...bse,age:text})}}
-                                    placeholder="Age"
+                                    value={rating.desc}
+                                    onChangeText={(text)=>{setRating({...rating,desc:text})}}
+                                    placeholder="review"
                                     ></TextInput>
                             <Button onPress={()=>{clickadd()}} title={'Add'} buttonStyle={{backgroundColor:'#FF3737',width:93,height:40,borderRadius:10,alignSelf:'center',marginTop:30}} titleStyle={{color:'white'}}/>
                             </View>
@@ -188,7 +260,7 @@ const About=()=>{
                     >
                         <TouchableWithoutFeedback>
                         <View style={{backgroundColor:'white',position:'absolute',top:'25%',borderRadius:15,justifyContent:'space-evenly',width:'80%',alignSelf:'center',padding:30}}>
-                            <Image style={{alignSelf:'center',width:65,height:65}} source={require('../../statics/tick.png')}/>
+                            <Image style={{alignSelf:'center',width:65,height:65}} source={require('../../../statics/tick.png')}/>
                             <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,alignSelf:'center',width:'80%',textAlign:'center',color:'#FF3737',marginTop:15}}>Rating submitted</Text>          
                         </View>
                         </TouchableWithoutFeedback>
@@ -204,10 +276,11 @@ const About=()=>{
       
     </View>
     <View style={{marginBottom:20}}>
-      <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={4}/>
+      {reviews.length>0 && reviews.map((review)=>{return <ReviewCard key={review.id} name={review.username} review={review.description} ns={review.no_of_rating}/> })}
+      {/* <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={4}/>
       <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={5}/>
       <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={4}/>
-      <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={5}/>
+      <ReviewCard name='Kaif' review='Nice & Very good behaviour' ns={5}/> */}
     </View>
     
     </View>

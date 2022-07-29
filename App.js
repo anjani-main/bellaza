@@ -59,7 +59,7 @@ import ConfirmPass from './screens/credentials/ConfirmPass';
            <>
         <AuthContext.Provider value={'authContext'}> 
               <NavigationContainer >
-                <Stack.Navigator screenOptions={globalScreenOptions} initialRouteName={'Start'}>
+                <Stack.Navigator screenOptions={globalScreenOptions} initialRouteName={'Home'}>
                   
                 <> 
                 

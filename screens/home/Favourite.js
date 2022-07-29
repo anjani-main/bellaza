@@ -52,7 +52,7 @@ const ServiceScroll=({navigation,sname,rating,price,desc})=>{
                         <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:18,lineHeight:27,fontWeight:'600'}}>{sname}</Text>
                         <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>Rating</Text>
                         <View style={{flexDirection:'row'}}>
-                        <Image source={require('../../statics/star.png')} style={{marginRight:10}} />
+                        <Image source={require('../../statics/star2.png')} style={{marginRight:10,marginTop:5}} />
                         <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>{rating} out of 5</Text>
                         </View>
                         <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>₹ {price}/-</Text>

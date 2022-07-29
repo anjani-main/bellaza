@@ -15,6 +15,7 @@ import CustomSidebarMenu from '../../components/CustomSideNavbar';
 import Bookings from './Bookings';
 import RegisterPartner from './RegisterPartner';
 import Offers from './Offers';
+import NavigationHome from './NavigationHome';
 const Drawer = createDrawerNavigator();
 const config = {
   animation: 'spring',
@@ -77,7 +78,8 @@ const MyDrawer=()=>{
     >
       <Drawer.Screen
           name="Home2"
-          component={Home}
+           component={Home}
+          //component={NavigationHome}
           options={{
           drawerActiveTintColor:'#181725',
            transitionSpec: {

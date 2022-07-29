@@ -7,7 +7,7 @@ import Header from '../../components/Header';
 const Help=({navigation})=>{
     return(
         <View style={{backgroundColor:'white',flex:1}}>
-        <Header title="Support" />
+        <Header nav={navigation} title="Support" />
         <Text style={{paddingLeft:25,color:'#F55633',fontWeight:'bold',fontSize:18,fontFamily:'Poppins-Light',marginTop:30}}>We're here to help</Text>
 
         <View style={{flexDirection:'row',borderWidth:1,width:121,height:36,justifyContent:'space-evenly',borderRadius:22,alignItems:'center',marginLeft:25,marginTop:30,borderColor:'#F55633'}}>

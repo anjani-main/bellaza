@@ -50,7 +50,7 @@ const OrderCard=()=>{
     },[])
     return(
         <ScrollView style={{backgroundColor:'white',flex:1,paddingTop:0}}>
-            <Header title={'My Bookings'}/>
+            <Header nav={navigation} title={'My Bookings'}/>
             <Text style={{paddingLeft:25,fontFamily:'Poppins-Regular',color:'#FF3737',fontSize:20,lineHeight:22.5,marginTop:20,fontWeight:'600'}}>Loreal Salon & Spa</Text>
             <Text style={{paddingLeft:25,fontFamily:'Poppins-Regular',color:'#554B4B',fontSize:15,lineHeight:22.5,marginTop:18,fontWeight:'500'}}>Appointment Date : <Text>03/07/2022</Text></Text>
             <Text style={{paddingLeft:25,fontFamily:'Poppins-Regular',color:'#554B4B',fontSize:15,lineHeight:22.5,marginTop:18,fontWeight:'500'}}>Time Slot : 05:00 PM</Text>

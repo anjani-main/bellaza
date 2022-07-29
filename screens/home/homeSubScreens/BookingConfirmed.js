@@ -41,7 +41,7 @@ const BookingConfirmed=({navigation})=>{
                 const userInfo=await AsyncStorage.getItem('userInfo');
                 if(userInfo){
                     const {user_id}=JSON.parse(userInfo);
-                    const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    const accRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
             
                         access_key:6808,
                         slot_booking:1,

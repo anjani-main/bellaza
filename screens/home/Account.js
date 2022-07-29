@@ -18,7 +18,7 @@ const data = [
 const Account=({navigation})=>{
     
     const [loading,setIsLoading] = useState(true);
-    const [user,setUser]=useState({name:'',email_mobile:'',gender:'',age:'',profile:'',address:''})
+    const [user,setUser]=useState({name:'',email_mobile:'',gender:'',age:'',profile:'https://cdn.vectorstock.com/i/1000x1000/32/12/default-avatar-profile-icon-vector-39013212.webp',address:''})
     const [edit,setEdit] = useState(false);
     const getAccountInfo=async()=>{
         const token=await generateToken();
@@ -27,7 +27,7 @@ const Account=({navigation})=>{
             const userInfo=await AsyncStorage.getItem('userInfo');
             if(userInfo){
                 const {email_mobile}=JSON.parse(userInfo);
-                const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                const accRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
 
                     access_key:6808,
                     view_profile:1,
@@ -53,7 +53,7 @@ const Account=({navigation})=>{
             const userInfo=await AsyncStorage.getItem('userInfo');
             if(userInfo){
                 const {user_id}=JSON.parse(userInfo);
-                const accURes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                const accURes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
                     edit_user_data:1,
                     access_key:6808,
                     user_id:user_id,

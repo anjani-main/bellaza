@@ -10,37 +10,37 @@ import axios from 'axios';
 
 const oneS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const twoS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const threeS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const fourS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const fiveS=(
     <View style={{flexDirection:'row',marginTop:-5}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const CardScroll=({source,nav,val,key})=>{
@@ -63,9 +63,12 @@ const CardScroll=({source,nav,val,key})=>{
     )
 }
 const BannerScroll=({nav,source})=>{
+    useEffect(()=>{
+        //console.log(source);
+    })
     return(
         <TouchableOpacity >
-              <Image source={source} style={{width:'90%',height:115,alignSelf:'center',borderRadius:15}}/>
+              <Image source={{uri:source}} style={{width:'90%',height:115,alignSelf:'center',borderRadius:15}}/>
         </TouchableOpacity>
     )
 }
@@ -224,6 +227,7 @@ const stopSpeechRecognizing = async () => {
 }
 const HomeContent=({navigation})=>{
     const [category,setCategory]=useState('');
+    const [bansrcs,setBansrcs]=useState({src1:'',src2:'',src3:''})
     const changeCateg=(service)=>{
         setCategory(service);
        
@@ -236,7 +240,7 @@ const HomeContent=({navigation})=>{
                 const userInfo=await AsyncStorage.getItem('userInfo');
                 if(userInfo){
                     const {email_mobile}=JSON.parse(userInfo);
-                    const accRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    const accRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
             
                         access_key:6808,
                         get_vendor_services:1,
@@ -259,34 +263,60 @@ const HomeContent=({navigation})=>{
         }
         
     }
+    const getBanners=async()=>{
+        try{
+            const token=await generateToken();
+            console.log("Token: ",token);
+            if(token!='error'){
+                const banRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+        
+                    access_key:6808,
+                    get_banner:1,
+                },{
+                    headers:{
+                        authorization:`Bearer ${token}`,
+                        'Content-Type':'multipart/form-data',
+                    }
+                });
+                console.log(banRes.data);
+                if(banRes.data.error=='false'){
+                    setBansrcs({src1:banRes.data.data.banner_1,src2:banRes.data.data.banner_2,src3:banRes.data.data.banner_3,});
+                    console.log("hi",bansrcs);
+                }
+               
+            }
+        }catch(e){
+            console.log("Error: ",e);
+        }
+    }
     useEffect(()=>{
         getVendorServices();
+        getBanners();
     },[])
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
-            <Header title="Home"/>
+            <Header nav={navigation} title="Home"/>
             <VoiceST/>
            
            <View style={{height:200,width:'100%',justifyContent:'center',alignItems:'center'}}>
+           {bansrcs.src1!=''?
            <Swiper
                 style={styles.wrapper}
                 activeDotColor="red"
                 activeDot={<View style={{backgroundColor: '#FF3737', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
                 dot={<View style={{backgroundColor: 'white' , width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,borderColor:'gray',borderWidth:1}} />}
-            >
-                <View style={styles.slide1}>
-                    <BannerScroll source={require('../../../statics/subland.jpeg')} nav={navigation}/>
-                </View>
-                <View style={styles.slide2}>
-                    <BannerScroll source={require('../../../statics/subland.jpeg')} nav={navigation}/>
-                </View>
-                <View style={styles.slide3}>
-                     <BannerScroll source={require('../../../statics/subland.jpeg')} nav={navigation}/>
-                </View>
-                <View style={styles.slide4}>
-                     <BannerScroll source={require('../../../statics/poster.png')} nav={navigation}/>
-                </View>
-            </Swiper>
+            > 
+                    <View style={styles.slide1}>
+                        <BannerScroll source={bansrcs.src1} nav={navigation}/>
+                    </View>
+                    <View style={styles.slide2}>
+                        <BannerScroll source={bansrcs.src2} nav={navigation}/>
+                    </View>
+                    <View style={styles.slide3}>
+                        <BannerScroll source={bansrcs.src3} nav={navigation}/>
+                    </View>
+            </Swiper> 
+          :null}
            </View>
            <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,paddingBottom:10}}>Top Services</Text>
            <View style={{height:95,marginBottom:0}}>

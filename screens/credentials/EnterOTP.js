@@ -17,18 +17,17 @@ const EnterOTP=({navigation,route})=>{
     const onPressEnterOTP=async()=>{
         try{
             setIsLoading(true);
-           navigation.navigate('CP')
+           //navigation.navigate('CP')
             const token=await generateToken();
             console.log("Token: ",token);
             if(token!='error'){
                 const userInfo=await AsyncStorage.getItem('userInfo');
                 if(userInfo){
                     const {email_mobile}=JSON.parse(userInfo);
-                    const rPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    const rPRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
 
                         access_key:6808,
-                        reset_password:1,
-                        password:val,
+                        verify_otp:1,
                         email_mobile:route.params.email_mobile,
                         reset_token:val
                     },{
@@ -38,8 +37,9 @@ const EnterOTP=({navigation,route})=>{
                         }
                     });
                     console.log(rPRes);
-                    if(rPRes.data.error==false){
-                       // navigation.navigate('Login');
+                    if(rPRes.data.error=='false'){
+                        setIsLoading(false);
+                        navigation.navigate('CP',{email_mobile:route.params.email_mobile});
                         
                     }
                 }

@@ -18,7 +18,7 @@ const Login=({navigation})=>{
             const token=await generateToken();
             console.log("Token: ",token);
             if(token!='error'){
-                const logRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                const logRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
         
                     access_key:6808,
                     get_user:1,

@@ -9,37 +9,37 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 const oneS=(
     <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const twoS=(
     <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const threeS=(
     <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const fourS=(
     <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 const fiveS=(
     <View style={{flexDirection:'row'}}>
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
-        <Image source={require('../../../statics/star.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
+        <Image source={require('../../../statics/star2.png')} />
     </View>
 )
 
@@ -52,7 +52,7 @@ const ServiceScroll=({navigation,sname,rating,price,desc})=>{
                         <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:18,lineHeight:27,fontWeight:'600'}}>{sname}</Text>
                         <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>Rating</Text>
                         <View style={{flexDirection:'row'}}>
-                        <Image source={require('../../../statics/star.png')} style={{marginRight:10}} />
+                        <Image source={require('../../../statics/star2.png')} style={{marginRight:10,marginTop:5}} />
                         <Text style={{color:'black',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>{rating} out of 5</Text>
                         </View>
                         <Text style={{color:'#ACACAC',fontFamily:'Poppins-Regular',fontSize:9,lineHeight:13,fontWeight:'500',marginTop:4}}>₹ {price}/-</Text>
@@ -79,7 +79,7 @@ const Haircut=({navigation})=>{
     }
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
-            <Header title="Haircut"/>
+            <Header nav={navigation} title="Haircut"/>
             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'90%',paddingRight:0,alignSelf:'center',marginTop:20}}>
                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-start',borderColor:'gray',borderWidth:1,width:'85%',backgroundColor:'#F9F9F9',paddingLeft:25,borderRadius:8,height:45}}>
                     <Icon

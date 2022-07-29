@@ -32,7 +32,7 @@ const Checkout2=({navigation})=>{
                 const userInfo=await AsyncStorage.getItem('userInfo');
                 if(userInfo){
                     const {email_mobile}=JSON.parse(userInfo);
-                    const slotRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                    const slotRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
             
                         access_key:6808,
                         view_profile:1,

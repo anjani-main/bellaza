@@ -18,7 +18,7 @@ const ResetPassword=({navigation})=>{
     //         // const token=await generateToken();
     //         // console.log("Token: ",token);
     //         // if(token!='error'){
-    //         //     const logRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+    //         //     const logRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
         
     //         //         access_key:6808,
     //         //         get_user:1,
@@ -53,7 +53,7 @@ const ResetPassword=({navigation})=>{
              const userInfo=await AsyncStorage.getItem('userInfo');
              if(userInfo){
                  const {email_mobile}=JSON.parse(userInfo);
-                 const fPRes=await axios.post('http://saloon.magnifyingevents.com/api/api-v2.php',{
+                 const fPRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
  
                      access_key:6808,
                      forgot_password:1,
