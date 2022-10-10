@@ -43,21 +43,21 @@ const fiveS=(
         <Image source={require('../../../statics/star2.png')} />
     </View>
 )
-const CardScroll=({source,nav,val,key})=>{
+const CardScroll=({source,nav,val,name,ot,ct,nr})=>{
    
     
     return(
         <TouchableOpacity onPress={()=>nav.navigate('Haircut')}>
             <Image style={{marginHorizontal:20,width:200,height:130,borderRadius:10}} source={source}/>
-            <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>Loreal Salon & Spa</Text>
+            <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>L{name}</Text>
             <View style={{flexDirection:'row',justifyContent:'space-evenly',width:200,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{flex:1,fontFamily:'Poppins-Regular',fontSize:12,fontWeight:'600',lineHeight:18,color:'#4CAF50',paddingLeft:25,marginBottom:1}}>Open</Text>
                 <Icon name="schedule" size={15} color="#FF3737" style={{flex:1}}/>
-                <Text style={{flex:3,fontFamily:'Poppins-Regular',fontSize:12,fontWeight:'500',lineHeight:18,color:'black',paddingLeft:4,marginBottom:1}}>10 Am to 11:30 Pm</Text>
+                <Text style={{flex:3,fontFamily:'Poppins-Regular',fontSize:12,fontWeight:'500',lineHeight:18,color:'black',paddingLeft:4,marginBottom:1}}>{ot} to {ct}</Text>
             </View>
             <View style={{flexDirection:'row',justifyContent:'space-evenly',width:198,alignItems:'center',paddingLeft:25}}>
                 {val==5?(fiveS):((val==4)?(fourS):((val==3)?(threeS):((val==2)?(twoS):(oneS))))}
-                <Text style={{flex:1,fontFamily:'Poppins-Regular',fontSize:10,fontWeight:'500',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>11.5k Ratings</Text>
+                <Text style={{flex:1,fontFamily:'Poppins-Regular',fontSize:10,fontWeight:'500',lineHeight:24,color:'black',paddingLeft:25,marginBottom:2}}>{nr} Ratings</Text>
             </View>
         </TouchableOpacity>
     )
@@ -76,8 +76,8 @@ const BannerScroll=({nav,source})=>{
 const ServiceScroll=({source,service,key,category,changeCateg})=>{
     return(
         <View  style={{borderRadius:8,marginHorizontal:20,height:70,width:70}}>
-            <TouchableOpacity onPress={()=>changeCateg(service)}>
-                {category==service? ( 
+            <TouchableOpacity onPress={()=>changeCateg(service.name,service.id)}>
+                {category.name==service.name? ( 
                 <LinearGradient  colors={['#FF5353','#FF5353','#FF5353', '#9A0000DB']} style={{width:'100%',height:65,alignItems:'center',justifyContent:'center',borderRadius:8}}>
                      <Image source={source}  style={{width:25, height:25,alignSelf:'center'}}/>
                 </LinearGradient>)
@@ -94,12 +94,8 @@ const ServiceScroll=({source,service,key,category,changeCateg})=>{
     )
 }
 const VoiceST=()=>{
-    const [pitch, setPitch] = useState('');
-    const [error, setError] = useState('');
     const [started, setStarted] = useState(false);
-    const [results, setResults] = useState([]);
-    const [search,setSearch]=useState()
-    const [partialResults, setPartialResults] = useState([]);
+    const [search,setSearch]=useState();
     const  onSpeechStart = (e) => {
         setStarted(true)
     };
@@ -226,35 +222,86 @@ const stopSpeechRecognizing = async () => {
         )
 }
 const HomeContent=({navigation})=>{
-    const [category,setCategory]=useState('');
-    const [bansrcs,setBansrcs]=useState({src1:'',src2:'',src3:''})
-    const changeCateg=(service)=>{
+    const [category,setCategory]=useState({name:'',id:''});
+    const [bansrcs,setBansrcs]=useState({src1:'',src2:'',src3:''});
+    const [vendSer,setVenSer]=useState([]);
+    const [emp,setEmp]=useState([]);
+    const [vendRan,setVenram]=useState([]);
+    const changeCateg=async(service)=>{
         setCategory(service);
+        await getCatData(id);
        
     }
-    const getVendorServices=async()=>{
+    const getCatData=async(id)=>{
         try{
-            const token=await generateToken({name:'anjnai'});
+            const token=await generateToken();
             console.log("Token: ",token);
             if(token!='error'){
                 const userInfo=await AsyncStorage.getItem('userInfo');
                 if(userInfo){
                     const {email_mobile}=JSON.parse(userInfo);
-                    const accRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+                    const catDataRes=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
             
                         access_key:6808,
-                        get_vendor_services:1,
-                        email_mobile:email_mobile
+                        get_cat_data:1,
+                        cat_id:id
                     },{
                         headers:{
                             authorization:`Bearer ${token}`,
                             'Content-Type':'multipart/form-data',
                         }
                     });
-                    console.log(accRes.data);
-                    if(accRes.data.error==false){
-                        // let userd={name:accRes.data.data.name,email_mobile:accRes.data.data.email_mobile,gender:accRes.data.data.gender,age:accRes.data.data.age,profile:accRes.data.data.profile,address:''};
-                        // setUser({...userd});
+                    console.log(catDataRes.data);
+                    if(catDataRes.data.error=='false'){
+                        let vendserlist=[];let empServlist=[];
+                        catDataRes.data.data.map(async (catD)=>{
+                            const venServ=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+            
+                                access_key:6808,
+                                get_vendor_services:1,
+                                email_mobile:catD.email_mobile
+                            },{
+                                headers:{
+                                    authorization:`Bearer ${token}`,
+                                    'Content-Type':'multipart/form-data',
+                                }
+                            });
+                            if(venServ.data.error=='false'){
+                                vendserlist=[...vendserlist,...venServ.data.data];
+                                setVenSer([...vendSer,...vendserlist]);
+
+                            }
+
+
+                            //
+                            
+
+                            const empServ=await axios.post('https://admin.bellazza.in/api/api-v2.php',{
+            
+                                access_key:6808,
+                                get_employee:1,
+                                email_mobile:catD.email_mobile
+                            },{
+                                headers:{
+                                    authorization:`Bearer ${token}`,
+                                    'Content-Type':'multipart/form-data',
+                                }
+                            });
+                            if(empServ.data.error=='false'){
+                                empServlist=[...empServlist,...empServ.data.data]
+                                setEmp([...emp,...empServlist]);
+                            }
+
+                            
+
+                        });
+                        setVenram([...vendSer]);
+                        // vendSer.sort((each)=>{
+                        //     return each.ns;
+                        // })
+                        // emp.sort((each)=>{
+                        //     return each.ns;
+                        // })
                     }
                 }
             }
@@ -263,6 +310,7 @@ const HomeContent=({navigation})=>{
         }
         
     }
+   
     const getBanners=async()=>{
         try{
             const token=await generateToken();
@@ -292,6 +340,7 @@ const HomeContent=({navigation})=>{
     useEffect(()=>{
         getVendorServices();
         getBanners();
+        getSerivices();
     },[])
     return(
         <ScrollView style={{backgroundColor:'white',height:500,flex:1}}>
@@ -321,10 +370,28 @@ const HomeContent=({navigation})=>{
            <Text style={{fontFamily:'Poppins-Regular',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,paddingBottom:10}}>Top Services</Text>
            <View style={{height:95,marginBottom:0}}>
             <ScrollView  horizontal={true} >
-                <ServiceScroll changeCateg={changeCateg} source={(category=='Haircut'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={'Haircut'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} source={(category=='Massage'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={'Massage'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} source={(category=='Spa'?require('../../../statics/spaw.png'):require('../../../statics/spa.png'))} service={'Spa'} category={category}/>
-                <ServiceScroll changeCateg={changeCateg} source={(category=='Shaving'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={'Shaving'} category={category}/>
+                
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Hair Cutting'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={{name:'Haircut',id:1}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Shaving'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={{name:'Massage',id:2}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Trimming'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:3}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Waxing'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:4}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Body Waxing'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={{name:'Haircut',id:5}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Body Polishing And Toning'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={{name:'Massage',id:6}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Cleanup'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:7}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Facial'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:8}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Haircut'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={{name:'Haircut',id:9}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Hair Color'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={{name:'Massage',id:10}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Hair Treatment'?require('../../../statics/massagew.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:11}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Hair SPA'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:12}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Massage'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={{name:'Haircut',id:13}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Threading'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={{name:'Massage',id:14}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Predicure'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:15}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Manicure'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:16}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='D-Tan'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:17}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Package'?require('../../../statics/haircutw.png'):require('../../../statics/haircut.png'))} service={{name:'Haircut',id:18}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Makeup'?require('../../../statics/massagew.png'):require('../../../statics/massage.png'))} service={{name:'Massage',id:19}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Mundan'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:20}} category={category}/>
+                <ServiceScroll changeCateg={changeCateg} source={(category.name=='Home Services'?require('../../../statics/shavingw.png'):require('../../../statics/shaving.png'))} service={{name:'Shaving',id:21}} category={category}/>
                 {/* <ServiceScroll changeCateg={changeCateg} source={require('../../../statics/banner.png')} service={'Haicut'} category={category}/> */}
                 
             </ScrollView>
@@ -341,6 +408,9 @@ const HomeContent=({navigation})=>{
            <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Best  Rated Salon</Text>
            <View style={{height:200,marginBottom:20,}}>
             <ScrollView horizontal={true} >
+                {vendSer.length>0 && vendSer.map((each)=>{
+                    return  <CardScroll  key={`${each.id}_${each.cat_id}`} name={each.product_name} val={each.ns} nav={navigation} source={each.image} nr={each.nr} ot={each.ot} ct={each.ct}/>
+                })}
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
@@ -352,6 +422,9 @@ const HomeContent=({navigation})=>{
            <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Salonist</Text>
            <View style={{height:200,marginBottom:20,}}>
             <ScrollView horizontal={true} >
+            {emp.length>0 && emp.map((each)=>{
+                    return  <CardScroll  key={`${each.id}_${each.cat_id}`} name={each.product_name} val={each.ns} nav={navigation} source={each.image} nr={each.nr} ot={each.ot} ct={each.ct}/>
+                })}
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
@@ -363,17 +436,9 @@ const HomeContent=({navigation})=>{
            <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Hair cutting Salon</Text>
            <View style={{height:200,marginBottom:20,}}>
             <ScrollView horizontal={true} >
-                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
-                <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
-                <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
-                <CardScroll val={5} nav={navigation} source={require('../../../statics/movImg.png')}/>
-                <CardScroll val={2} nav={navigation} source={require('../../../statics/movImg.png')}/>
-              
-            </ScrollView>
-           </View>
-           <Text style={{fontFamily:'Poppins-Medium',fontSize:16,fontWeight:'600',lineHeight:24,color:'black',paddingLeft:25,marginBottom:15}}>Top Massage Salon</Text>
-           <View style={{height:200,marginBottom:20,}}>
-            <ScrollView horizontal={true} >
+                {vendRan.length>0 && vendRan.map((each)=>{
+                    return  <CardScroll  key={`${each.id}_${each.cat_id}`} name={each.product_name} val={each.ns} nav={navigation} source={each.image} nr={each.nr} ot={each.ot} ct={each.ct}/>
+                })}
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={3} nav={navigation} source={require('../../../statics/movImg.png')}/>
                 <CardScroll val={4} nav={navigation} source={require('../../../statics/movImg.png')}/>
